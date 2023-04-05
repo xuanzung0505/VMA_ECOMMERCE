@@ -7,3 +7,7 @@ how to auto format after save (change formatter via right click + 'Format Docume
 1. press 'ctrl' + ','
 2. search 'format...'
 3. check the option
+
+Reference
+https://youtu.be/Elpu7CIuqjY
+https://github.com/gopinav/React-TypeScript-Webpack-Starter
