@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 module.exports = {
     mode: 'production',
@@ -6,6 +7,7 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin({
             'process.env.name': JSON.stringify('production_name')
-        })
+        }),
+        new BundleAnalyzerPlugin(),
     ],
 }
