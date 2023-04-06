@@ -7,7 +7,8 @@ import { useState } from 'react'
 
 export const App = () => {
   const [count, setCount] = useState(0)
-  const name = 'hehe'
+  const name: string = 'hehe'
+  console.log(typeof name)
 
   return (
     <>
