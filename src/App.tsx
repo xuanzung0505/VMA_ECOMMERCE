@@ -1,26 +1,15 @@
-import './styles.css'
-import IMAGE from './react.png'
-import { useState } from 'react'
+import './public/styles/App.scss'
+import { Navigation } from './Navigation'
+import { PromotionSection } from './promotion_section/PromotionSection'
 // import * as dotenv from 'dotenv'
 
 // dotenv.config()
 
 export const App = () => {
-  const [count, setCount] = useState(0)
-  const name: string = 'hehe'
-  console.log(typeof name)
-
   return (
-    <>
-      <h1>App.tsx</h1>
-      <img src={IMAGE} alt="react logo" width="300" height="200"></img>
-      <button
-        onClick={() => {
-          setCount(count + 1)
-        }}
-      >
-        Button {count}
-      </button>
-    </>
+    <div className="container">
+      <Navigation />
+      <PromotionSection />
+    </div>
   )
 }

@@ -1,0 +1,85 @@
+@import 'variables';
+
+.promotion__section__container {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+@mixin PromotionSectionStyle {
+  display: flex;
+  flex-direction: column;
+  max-width: $screen-width;
+  width: 100%;
+}
+
+//>= screen width
+@media screen and (min-width: $screen-width) {
+  .promotion__section {
+    @include PromotionSectionStyle();
+  }
+}
+
+// < screen width
+.promotion__section {
+  @include PromotionSectionStyle();
+  width: 99%;
+}
+
+.promotion__section__banner {
+  display: flex;
+  height: $promotionSectionBanner;
+}
+
+.promotion__section__banner__carousel {
+  flex: 2 1 auto;
+  border: 1px solid black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  //   position: relative;
+}
+
+.promotion__section__banner__carousel__item {
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   display: flex;
+  opacity: 0.1;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.current_slide {
+  //   border: 1px solid black;
+  min-width: 100%;
+  min-height: 100%;
+  opacity: 1;
+  transform: translateX(100%);
+}
+.prev_slide {
+  // position: absolute;
+  //   left: 0;
+  transform: translateX(-200%);
+  min-width: 100%;
+  min-height: 100%;
+}
+.next_slide {
+  //   position: absolute;
+  //   right: 0;
+  transform: translateX(100%);
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.promotion__section__banner__other {
+  flex: 1 1 auto;
+}
+
+.promotion__section__logo {
+  display: flex;
+}
