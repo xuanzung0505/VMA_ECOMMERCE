@@ -189,8 +189,9 @@
   justify-content: center;
   align-items: center;
   visibility: hidden;
-  transition-duration: 200ms;
+  transition-duration: $transitionDuration;
   color: black;
+  z-index: 1;
   // box-shadow: $navigationBodyCartInfoBoxShadow $navigationBodyCartInfoBoxShadow
   //   20px;
 }

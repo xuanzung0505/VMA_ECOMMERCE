@@ -1,17 +1,16 @@
 import { PromotionSectionCarousel } from './PromotionSectionCarousel'
 import '../public/styles/PromotionSection.scss'
+const { data } = require('./bannerOther')
 
 const PromotionSection = () => {
   return (
     <div className="promotion__section__container">
       <section className="promotion__section">
         <div className="promotion__section__banner">
-          <div className="promotion__section__banner__carousel">
-            <PromotionSectionCarousel />
-          </div>
+          <PromotionSectionCarousel />
           <div className="promotion__section__banner__other">
-            <div>Item1</div>
-            <div>Item2</div>
+            <div style={{ backgroundImage: `url(${data[0].image})` }}></div>
+            <div style={{ backgroundImage: `url(${data[1].image})` }}></div>
           </div>
         </div>
         <div className="promotion__section__logo">
