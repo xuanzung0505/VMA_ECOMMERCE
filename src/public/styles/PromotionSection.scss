@@ -1,10 +1,12 @@
 @import 'variables';
 
 .promotion__section__container {
-  margin-top: $gap3;
+  // margin-top: $gap3;
+  padding-top: $gap3;
   width: 100%;
   display: flex;
   justify-content: center;
+  background-color: white;
 }
 
 @mixin PromotionSectionStyle {
@@ -58,7 +60,7 @@
 
 .promotion__section__banner__carousel {
   flex: 2 1 auto;
-  border: 1px solid black;
+  // border: 1px solid black;
 
   display: flex;
   justify-content: center;
@@ -121,5 +123,38 @@
 }
 
 .promotion__section__logo {
+  margin-top: $gap3;
   display: flex;
+  justify-content: space-around;
+  height: auto;
+  margin-bottom: $gap;
+}
+
+.promotion__section__logo__item {
+  flex: 1 1 0px;
+  // width: 1vmin;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2px;
+  // justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  height: auto;
+}
+
+.promotion__section__logo__item__logo {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-width: 3vmax;
+  min-height: 3vmax;
+  max-width: 4vmax;
+  max-height: 4vmax;
+  flex: 1 1 auto;
+}
+
+.promotion__section__logo__item__caption {
+  font-size: $fontSize2;
+  font-family: $fontFamily;
+  flex: 1 1 auto;
 }

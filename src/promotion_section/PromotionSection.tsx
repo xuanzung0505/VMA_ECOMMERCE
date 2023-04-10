@@ -1,6 +1,7 @@
 import { PromotionSectionCarousel } from './PromotionSectionCarousel'
 import '../public/styles/PromotionSection.scss'
 const { data } = require('./bannerOther')
+const { logo } = require('./logo')
 
 const PromotionSection = () => {
   return (
@@ -14,14 +15,19 @@ const PromotionSection = () => {
           </div>
         </div>
         <div className="promotion__section__logo">
-          <div className="promotion__logo__item">Logo1</div>
-          <div className="promotion__logo__item">Logo2</div>
-          <div className="promotion__logo__item">Logo3</div>
-          <div className="promotion__logo__item">Logo4</div>
-          <div className="promotion__logo__item">Logo5</div>
-          <div className="promotion__logo__item">Logo6</div>
-          <div className="promotion__logo__item">Logo7</div>
-          <div className="promotion__logo__item">Logo8</div>
+          {logo.map((item: any, index: any) => {
+            return (
+              <div className="promotion__section__logo__item" key={index}>
+                <div
+                  className="promotion__section__logo__item__logo"
+                  style={{ backgroundImage: `url(${logo[index].image})` }}
+                ></div>
+                <div className="promotion__section__logo__item__caption">
+                  {item.caption}
+                </div>
+              </div>
+            )
+          })}
         </div>
       </section>
     </div>

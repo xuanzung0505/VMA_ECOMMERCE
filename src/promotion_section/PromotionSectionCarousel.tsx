@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { ChevronLeft } from './ChevronLeft'
 import { ChevronRight } from './ChevronRight'
 
-const { data } = require('./data')
+const { data } = require('./banner')
 
 const PromotionSectionCarousel = () => {
   const [bannerList, setBannerList] = useState(data)

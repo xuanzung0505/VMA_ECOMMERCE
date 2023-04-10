@@ -2,7 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=swap');
 @mixin navigationTextStyle {
   color: white;
-  font-size: 12px;
+  // font-size: 12px;
+  font-size: $fontSize2;
   font-family: 'Noto Sans';
   font-weight: 400;
 }
@@ -106,15 +107,18 @@
 }
 
 .navigation__body__logo img {
-  max-width: 150px;
+  // max-width: 150px;
+  width: $fontSize2 * 15;
 }
 
 .navigation__body__logo {
   flex: 1 1 $navigationBodyLogoMinFlex;
+  display: flex;
+  justify-content: center;
 }
 
 .navigation__body__searchSection {
-  flex: 5 1 100px;
+  flex: 5 1 $fontSize2 * 15;
   display: flex;
   flex-direction: column;
   row-gap: 7px;
@@ -160,7 +164,7 @@
 }
 
 .navigation__body__cart {
-  flex: 1 1 50px;
+  flex: 1 1 $fontSize2 * 5;
   display: flex;
   justify-content: center;
 }
