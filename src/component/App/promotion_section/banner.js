@@ -1,7 +1,7 @@
-import BANNER1 from '../../../public/promotion_section_carousel/banner5.jpg'
-import BANNER2 from '../../../public/promotion_section_carousel/banner6.jpg'
-import BANNER3 from '../../../public/promotion_section_carousel/banner7.jpg'
-import BANNER4 from '../../../public/promotion_section_carousel/banner8.jpg'
+import BANNER1 from '../../../public/assets/App/promotion_section_carousel/banner5.jpg'
+import BANNER2 from '../../../public/assets/App/promotion_section_carousel/banner6.jpg'
+import BANNER3 from '../../../public/assets/App/promotion_section_carousel/banner7.jpg'
+import BANNER4 from '../../../public/assets/App/promotion_section_carousel/banner8.jpg'
 
 const data = [
     {

@@ -1,4 +1,4 @@
-import '../../../public/styles/Navigation.scss'
+import '../../../public/styles/App/Navigation.scss'
 import shopee_url from '../../../public/Shopee-Logo-inverted.png'
 import cart_empty_url from '../../../public/Cart-Empty.png'
 

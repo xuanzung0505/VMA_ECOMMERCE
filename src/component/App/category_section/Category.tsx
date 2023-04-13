@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import '../../../public/styles/CategorySection.scss'
+import '../../../public/styles/App/CategorySection.scss'
 import { useLoaderData } from 'react-router-dom'
 
 // const { categoryList } = require('./category.js')

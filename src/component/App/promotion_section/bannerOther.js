@@ -1,5 +1,5 @@
-import BANNER1 from '../../../public/promotion_section_other/bannerOther1.png'
-import BANNER2 from '../../../public/promotion_section_other/bannerOther2.png'
+import BANNER1 from '../../../public/assets/App/promotion_section_other/bannerOther1.png'
+import BANNER2 from '../../../public/assets/App/promotion_section_other/bannerOther2.png'
 
 const data = [
     {

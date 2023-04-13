@@ -1,4 +1,4 @@
-import '../public/styles/App.scss'
+import '../public/styles/App/App.scss'
 import { Navigation } from '../component/App/navigation_section/Navigation'
 import { PromotionSection } from '../component/App/promotion_section/PromotionSection'
 import { CategorySection } from '../component/App/category_section/Category'
