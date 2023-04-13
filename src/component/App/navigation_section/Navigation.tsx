@@ -1,6 +1,6 @@
 import '../../../public/styles/App/Navigation.scss'
-import shopee_url from '../../../public/Shopee-Logo-inverted.png'
-import cart_empty_url from '../../../public/Cart-Empty.png'
+import shopee_url from '../../../public/assets/Shopee-Logo-inverted.png'
+import cart_empty_url from '../../../public/assets/Cart-Empty.png'
 
 export const Navigation = () => {
   return (
