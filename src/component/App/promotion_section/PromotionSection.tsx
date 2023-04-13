@@ -1,5 +1,5 @@
 import { PromotionSectionCarousel } from './PromotionSectionCarousel'
-import '../public/styles/PromotionSection.scss'
+import '../../../public/styles/PromotionSection.scss'
 const { data } = require('./bannerOther')
 const { logo } = require('./logo')
 

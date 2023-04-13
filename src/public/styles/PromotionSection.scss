@@ -18,7 +18,7 @@
 
 @mixin PromotionSectionBannerCarouselChevron {
   &:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: $transparent-color3;
   }
 
   width: 2vmax;
@@ -29,7 +29,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: $transparent-color2;
 
   div {
     color: white;
@@ -140,6 +140,11 @@
   align-items: center;
   text-align: center;
   height: auto;
+  cursor: pointer;
+}
+
+.promotion__section__logo__item:hover {
+  transform: translateY(-2%);
 }
 
 .promotion__section__logo__item__logo {

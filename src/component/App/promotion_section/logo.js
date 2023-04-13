@@ -1,11 +1,11 @@
-import LOGO1 from '../public/promotion_section_logo/logo1.png'
-import LOGO2 from '../public/promotion_section_logo/logo2.png'
-import LOGO3 from '../public/promotion_section_logo/logo3.png'
-import LOGO4 from '../public/promotion_section_logo/logo4.png'
-import LOGO5 from '../public/promotion_section_logo/logo5.png'
-import LOGO6 from '../public/promotion_section_logo/logo6.png'
-import LOGO7 from '../public/promotion_section_logo/logo7.png'
-import LOGO8 from '../public/promotion_section_logo/logo8.png'
+import LOGO1 from '../../../public/promotion_section_logo/logo1.png'
+import LOGO2 from '../../../public/promotion_section_logo/logo2.png'
+import LOGO3 from '../../../public/promotion_section_logo/logo3.png'
+import LOGO4 from '../../../public/promotion_section_logo/logo4.png'
+import LOGO5 from '../../../public/promotion_section_logo/logo5.png'
+import LOGO6 from '../../../public/promotion_section_logo/logo6.png'
+import LOGO7 from '../../../public/promotion_section_logo/logo7.png'
+import LOGO8 from '../../../public/promotion_section_logo/logo8.png'
 
 const data = [
     {
