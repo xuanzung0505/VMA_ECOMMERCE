@@ -1,0 +1,66 @@
+@import '../variables.scss';
+
+@mixin FormContainerStyle {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  //   border: 1px solid black;
+  height: 500px;
+  width: 100%;
+  //   max-width: $screen-width;
+}
+
+//>= screen width
+@media screen and (min-width: $screen-width) {
+  .form__container {
+    &.login {
+      @include FormContainerStyle();
+      padding: 10px $navigationPaddingLR;
+    }
+  }
+}
+
+// < screen width
+.form__container {
+  &.login {
+    @include FormContainerStyle();
+    width: 99%;
+  }
+}
+
+.form__container {
+  &.login {
+    .form__banner {
+      &.login {
+        // display: flex;
+
+        background-size: contain;
+        background-repeat: no-repeat;
+        height: 500px;
+        // width: $screen-width;
+        width: 1000px;
+        // margin-left: 5vw;
+        border: 1px solid black;
+      }
+    }
+
+    form {
+      //   margin: 90px 0px;
+      height: 400px;
+      width: 30vw;
+      display: flex;
+      background-color: white;
+      position: absolute;
+      //   right: 10%;
+
+      border: 1px solid black;
+      //   padding: 10px $navigationPaddingLR;
+      right: 10vw;
+      top: 20vh;
+    }
+  }
+}

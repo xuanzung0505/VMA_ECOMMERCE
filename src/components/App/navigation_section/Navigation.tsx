@@ -2,6 +2,8 @@ import '../../../public/styles/App/Navigation.scss'
 import shopee_url from '../../../public/assets/Shopee-Logo-inverted.png'
 import cart_empty_url from '../../../public/assets/Cart-Empty.png'
 
+import { Link } from 'react-router-dom'
+
 export const Navigation = () => {
   return (
     <div className="navigation__container">
@@ -42,7 +44,9 @@ export const Navigation = () => {
             </div>
             <div className="navigation__header__button">Đăng Ký</div>
             <div className="divider"></div>
-            <div className="navigation__header__button">Đăng Nhập</div>
+            <div className="navigation__header__button">
+              <Link to="/login">Đăng Nhập</Link>
+            </div>
           </div>
         </div>
         <div className="navigation__body">
