@@ -1,0 +1,7 @@
+@mixin navigationTextStyle {
+  color: white;
+  // font-size: 12px;
+  font-size: $fontSize2;
+  font-family: 'Noto Sans';
+  font-weight: 400;
+}

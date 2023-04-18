@@ -48,6 +48,11 @@
   position: sticky;
   top: 0;
   z-index: 1;
+
+  &.login {
+    background-image: none;
+    background-color: white;
+  }
 }
 
 //width > screen-width
@@ -62,6 +67,12 @@
     // width: 80%;
     padding: 10px $navigationPaddingLR;
     row-gap: $navigationRowGap;
+
+    &.login {
+      background-image: none;
+      background-color: black;
+      // color: black;
+    }
   }
 }
 
@@ -74,8 +85,18 @@
   height: $navigationHeight;
   width: 99%;
   // max-width: 1400px;
-  // padding: 10px 10px;
+  padding: 10px 10px;
   row-gap: $navigationRowGap;
+
+  &.login {
+    background-image: none;
+    background-color: white;
+    // color: black;
+  }
+}
+
+.bigText {
+  font-size: 2 * $fontSize2;
 }
 
 .navigation__header {
@@ -85,10 +106,23 @@
 
 .navigation__header__left {
   @include navigationHeaderStyle();
+
+  &.login {
+    color: black;
+  }
 }
 
 .navigation__header__right {
   @include navigationHeaderStyle();
+
+  &.login {
+    color: black;
+
+    a {
+      font-size: 1.2 * $fontSize2;
+      color: $main-color3;
+    }
+  }
 }
 
 .navigation__header__button {
@@ -111,9 +145,17 @@
   align-items: center;
 }
 
-.navigation__body__logo img {
+.navigation__body__logo {
   // max-width: 150px;
-  width: $fontSize2 * 15;
+  img {
+    width: $fontSize2 * 15;
+  }
+
+  &.login {
+    img {
+      width: $fontSize2 * 12;
+    }
+  }
 }
 
 .navigation__body__logo {

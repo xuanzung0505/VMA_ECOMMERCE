@@ -1,16 +1,17 @@
-@import '../variables.scss';
+@import '../variables';
+@import '../mixins';
 
 @mixin FormContainerStyle {
   display: flex;
   flex-direction: row;
-
   justify-content: center;
   align-items: center;
   text-align: center;
 
   //   border: 1px solid black;
-  height: 500px;
+  height: 600px;
   width: 100%;
+  background-color: $main-color4;
   //   max-width: $screen-width;
 }
 
@@ -19,7 +20,7 @@
   .form__container {
     &.login {
       @include FormContainerStyle();
-      padding: 10px $navigationPaddingLR;
+      // margin: 0px 10px;
     }
   }
 }
@@ -28,7 +29,7 @@
 .form__container {
   &.login {
     @include FormContainerStyle();
-    width: 99%;
+    // width: 99%;
   }
 }
 
@@ -40,27 +41,128 @@
 
         background-size: contain;
         background-repeat: no-repeat;
-        height: 500px;
-        // width: $screen-width;
+        height: 600px;
         width: 1000px;
         // margin-left: 5vw;
-        border: 1px solid black;
+        // border: 1px solid black;
       }
     }
 
-    form {
-      //   margin: 90px 0px;
-      height: 400px;
-      width: 30vw;
-      display: flex;
-      background-color: white;
-      position: absolute;
-      //   right: 10%;
+    .form__content {
+      &.login {
+        // height: 25em;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        left: 55vw;
+        height: 450px;
+        width: 350px;
 
-      border: 1px solid black;
-      //   padding: 10px $navigationPaddingLR;
-      right: 10vw;
-      top: 20vh;
+        background-color: white;
+        // border: 1px solid black;
+
+        border-radius: $radius;
+        padding: 5px 20px;
+
+        @include navigationTextStyle();
+        color: black;
+        font-size: 1.8 * $fontSize;
+
+        .form__header {
+          display: flex;
+          flex-direction: row;
+          height: 20%;
+          align-items: center;
+        }
+
+        row-gap: 5px;
+
+        .form__body {
+          display: flex;
+          flex-direction: column;
+          // height: 20%;
+          // align-items: center;
+          row-gap: 25px;
+
+          input:not([type='submit']) {
+            border: 1px solid $transparent-color6;
+            border-radius: 1px;
+            padding: 12px 10px;
+            // color: $transparent-color6;
+
+            &:focus {
+              // border: none;
+              // border-radius: 1px;
+              outline: none;
+              border: 1px solid $transparent-color4;
+            }
+          }
+
+          input[type='submit'] {
+            border: 1px solid $transparent-color6;
+            border-radius: $radius;
+            padding: 12px 10px;
+            // color: $transparent-color6;
+            cursor: pointer;
+            // &:focus {
+            //   // border: none;
+            //   // border-radius: 1px;
+            //   outline: none;
+            //   border: 1px solid $transparent-color4;
+            // }
+
+            background-color: $main-color4;
+            color: white;
+
+            &:hover {
+              opacity: 0.9;
+            }
+          }
+        }
+
+        .form__row {
+          margin-top: 5px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          & > a {
+            text-decoration: none;
+            font-size: $fontSize;
+          }
+          color: $transparent-color2;
+          font-size: 1.2 * $fontSize;
+
+          .divider-horizontal {
+            // height: 1px;
+            width: 130px;
+            border: 1px solid $transparent-color6;
+          }
+
+          &.center {
+            justify-content: center;
+          }
+        }
+      }
     }
+  }
+}
+
+.btn-type1 {
+  background-color: white;
+  font-size: 1.2 * $fontSize;
+  padding: 10px 40px;
+
+  width: 48%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 5px;
+  border: 1px solid $transparent-color2;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: $transparent-color5;
   }
 }
