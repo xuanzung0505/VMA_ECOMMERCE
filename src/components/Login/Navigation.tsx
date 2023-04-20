@@ -1,4 +1,5 @@
 import shopee_url from '../../public/assets/Shopee-Logo.png'
+import { Link } from 'react-router-dom'
 
 const Navigation = () => {
   return (
@@ -7,9 +8,9 @@ const Navigation = () => {
         <div className="navigation__header">
           <div className="navigation__header__left login">
             <div className="navigation__body__logo login">
-              <a href="https://shopee.vn">
+              <Link to="/">
                 <img src={shopee_url}></img>
-              </a>
+              </Link>
             </div>
             <div className="bigText">Đăng nhập</div>
           </div>

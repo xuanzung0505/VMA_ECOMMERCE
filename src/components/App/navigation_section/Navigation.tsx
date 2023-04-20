@@ -51,9 +51,9 @@ export const Navigation = () => {
         </div>
         <div className="navigation__body">
           <div className="navigation__body__logo">
-            <a href="https://shopee.vn">
+            <Link to="/">
               <img src={shopee_url}></img>
-            </a>
+            </Link>
           </div>
           <div className="navigation__body__searchSection">
             <form method="POST" action="/search">
@@ -85,7 +85,15 @@ export const Navigation = () => {
             </div>
           </div>
           <div className="navigation__body__cart">
-            <i className="fa-solid fa-cart-shopping fa-2xl"></i>
+            <Link to="/cart">
+              <i
+                className="fa-solid fa-cart-shopping fa-2xl"
+                style={{ color: '#ffffff' }}
+              ></i>
+            </Link>
+            {/* <a href="/cart">
+              <i className="fa-solid fa-cart-shopping fa-2xl"></i>
+            </a> */}
           </div>
           <div className="navigation__body__cart__info">
             <div className="navigation__body__cart__info__empty">

@@ -1,0 +1,281 @@
+@import '../variables';
+@import '../mixins';
+
+@mixin CartRowMixins {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  padding: 15px 30px;
+  border-radius: $radius;
+  background-color: white;
+
+  @include navigationTextStyle();
+  color: black;
+  font-size: 1.2 * $fontSize;
+
+  div {
+    &.checkColumn {
+      display: flex;
+      flex: 1 1 5%;
+      justify-content: center;
+      align-items: center;
+
+      //   padding: 5px 5px;
+      input[type='checkbox'] {
+      }
+    }
+
+    &.detailColumn {
+      display: flex;
+      flex-direction: row;
+      flex: 10 1 45%;
+      justify-content: flex-start;
+      column-gap: 8px;
+      align-items: center;
+
+      & > .mallLogo {
+        width: 30px;
+        height: 30px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      & > .chatLogo {
+        width: 20px;
+        height: 20px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: pointer;
+      }
+
+      & > a > .item__logo {
+        display: flex;
+        width: 70px;
+        height: 70px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      & > .item__detail {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 50%;
+        & > .title {
+          height: 40px;
+          //   width: 100px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          text-decoration: none;
+          color: black;
+        }
+
+        & > .banner {
+          width: 200px;
+          height: 30px;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+
+        & > .promotion {
+          font-size: $fontSize;
+        }
+      }
+
+      & > .item__variance {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 50%;
+        color: $transparent-color7;
+
+        & > .choose_variance {
+          display: flex;
+          column-gap: 8px;
+          align-items: center;
+
+          i {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    &.unitPriceColumn {
+      display: flex;
+      flex: 2 1 15%;
+      justify-content: center;
+      align-items: center;
+      color: $transparent-color7;
+
+      &.row {
+        color: black;
+      }
+    }
+    &.quantityColumn {
+      display: flex;
+      flex: 2 1 15%;
+      justify-content: center;
+      align-items: center;
+      color: $transparent-color7;
+
+      button {
+        width: 20%;
+        height: 35%;
+        background-color: white;
+        // color: $transparent-color6;
+        border: 1px solid $transparent-color6;
+        font-size: 2 * $fontSize;
+        color: $transparent-color7;
+      }
+
+      input {
+        width: 30%;
+        height: 30%;
+        text-align: center;
+        border: 1px solid $transparent-color6;
+        font-size: 1.5 * $fontSize;
+        color: $transparent-color7;
+      }
+    }
+    &.itemTotalPriceColumn {
+      display: flex;
+      flex: 2 1 15%;
+      justify-content: center;
+      align-items: center;
+      color: $transparent-color7;
+
+      &.row {
+        color: $main-color4;
+      }
+    }
+    &.actionColumn {
+      display: flex;
+      flex-direction: column;
+      row-gap: 5px;
+      flex: 2 1 15%;
+      justify-content: center;
+      align-items: center;
+      color: $transparent-color7;
+
+      &.row {
+        color: black;
+      }
+
+      & > .actionDelete {
+        cursor: pointer;
+      }
+
+      & > .actionFindSimilar {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        color: $main-color4;
+        cursor: pointer;
+        & > .actionCaption {
+          flex: 4 1 100px;
+          text-align: center;
+          font-size: 1.1 * $fontSize;
+        }
+
+        & > .actionDropdown {
+          flex: 1 1 auto;
+          display: flex;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
+
+.cart__container {
+  display: flex;
+  flex-direction: column;
+  // height: $navigationHeight;
+  width: 100%;
+  // row-gap: $navigationRowGap;
+  overflow: visible;
+  align-items: center;
+
+  // position: -webkit-sticky; /* Safari */
+  // position: sticky;
+  // top: 0;
+  // z-index: 1;
+
+  //width > screen-width
+  @media screen and (min-width: $screen-width) {
+    & > .cart {
+      display: flex;
+      flex-direction: column;
+      height: $navigationHeight;
+      max-width: $screen-width;
+      // max-width: 100%;
+      // width: 80%;
+      padding: 10px $navigationPaddingLR;
+      row-gap: $navigationRowGap;
+    }
+  }
+
+  // width < screen-width
+  & > .cart {
+    display: flex;
+    flex-direction: column;
+    height: $navigationHeight;
+    width: 99%;
+    // max-width: 1400px;
+    // padding: 10px 10px;
+    row-gap: $navigationRowGap;
+
+    & > .cart__detail {
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+    }
+  }
+
+  .cart__detail {
+    & > .cart__row {
+      @include navigationTextStyle();
+      color: black;
+      font-size: 1.2 * $fontSize;
+
+      background-color: white;
+      display: flex;
+      align-items: center;
+      padding: 8px 10px;
+      border: 1px solid yellowgreen;
+    }
+
+    & > .cart__header {
+      @include CartRowMixins();
+    }
+
+    & > .cart__section {
+      display: flex;
+      flex-direction: column;
+      // border: 1px solid white;
+      // justify-content: stretch;
+      // align-items: center;
+      & > .cart__item {
+        @include CartRowMixins();
+        border-bottom: 1px solid $transparent-color6;
+        // border-top: 1px solid $transparent-color5;
+      }
+
+      & > .divider-row {
+        display: flex;
+        justify-content: center;
+        background-color: white;
+        & > .divider {
+          width: 100%;
+
+          height: 1px;
+          background-color: $transparent-color6;
+        }
+      }
+    }
+  }
+}

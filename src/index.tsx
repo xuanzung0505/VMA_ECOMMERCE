@@ -6,6 +6,7 @@ import ErrorPage from './routes/error-page'
 
 import { App } from './routes/App'
 import { LoginPage } from './routes/LoginPage'
+import { CartPage } from './routes/CartPage'
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,11 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <LoginPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/cart',
+    element: <CartPage />,
     errorElement: <ErrorPage />,
   },
 ])
