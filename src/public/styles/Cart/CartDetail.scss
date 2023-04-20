@@ -14,6 +14,15 @@
   color: black;
   font-size: 1.2 * $fontSize;
 
+  //logo
+  .voucherLogo {
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
   div {
     &.checkColumn {
       display: flex;
@@ -24,6 +33,22 @@
       //   padding: 5px 5px;
       input[type='checkbox'] {
       }
+
+      & > .voucherLogo {
+        width: 20px;
+        height: 20px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      & > .blankCarLogo {
+        width: 20px;
+        height: 20px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
     }
 
     &.detailColumn {
@@ -33,6 +58,11 @@
       justify-content: flex-start;
       column-gap: 8px;
       align-items: center;
+
+      a {
+        text-decoration: none;
+        font-size: 1.1 * $fontSize;
+      }
 
       & > .mallLogo {
         width: 30px;
@@ -278,4 +308,133 @@
       }
     }
   }
+
+  .cart__footer {
+    display: flex;
+    flex-direction: column;
+    bottom: 0;
+    position: sticky;
+
+    // border-top: 10px $transparent-color6;
+
+    & > .cart__header {
+      @include CartRowMixins();
+      justify-content: flex-end;
+      column-gap: 10px;
+
+      & > .voucher {
+        &.cartFooter {
+          // flex: 5 1 auto;
+          display: flex;
+          column-gap: 5px;
+          width: 400px;
+          font-size: 1.5 * $fontSize;
+
+          & > .notify-none {
+            color: $transparent-color7;
+          }
+        }
+      }
+
+      & > .coupon {
+        &.cartFooter {
+          // color: white;
+          text-align: right;
+          width: 150px;
+          a {
+            text-decoration: none;
+            font-size: 1.3 * $fontSize;
+          }
+          // flex: 1 1 auto;
+        }
+      }
+      &.checkout {
+        display: flex;
+        justify-content: stretch;
+        align-items: center;
+        font-size: 1.5 * $fontSize;
+        text-align: center;
+        & > .checkColumn {
+          flex: 0 0 auto;
+        }
+
+        & > .chooseAll {
+          flex: 1 1 auto;
+        }
+        & > .actionDelete {
+          flex: 0 1 10px;
+          cursor: pointer;
+        }
+        & > .actionSave {
+          flex: 1 1 auto;
+          color: $main-color3;
+          cursor: pointer;
+        }
+        & > .group {
+          display: flex;
+          flex: 5 1 auto;
+          column-gap: 10px;
+          justify-content: stretch;
+          & > .totalCaption {
+            width: 40%;
+          }
+          & > .totalValue {
+            display: flex;
+            flex-direction: column;
+            width: 35%;
+            // align-items: flex-end;
+
+            & > .value {
+              color: $main-color4;
+              font-size: 2 * $fontSize;
+
+              display: flex;
+              justify-content: flex-end;
+              align-items: center;
+              column-gap: 5px;
+              i {
+                font-size: 1.2 * $fontSize;
+                color: $transparent-color7;
+              }
+            }
+
+            & > .savedValue {
+              display: flex;
+              font-size: 1.2 * $fontSize;
+              justify-content: space-between;
+
+              & > .value {
+                color: $main-color4;
+              }
+            }
+          }
+          & > .order {
+            width: 35%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            button {
+              @include primaryButton();
+              // padding: 12px 70px;
+              width: 100%;
+              height: 100%;
+              font-size: 1.3 * $fontSize;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+[aria-disabled='true'] {
+  opacity: 0.5;
+  cursor: default;
+
+  a {
+    cursor: default;
+  }
+
+  pointer-events: none;
 }

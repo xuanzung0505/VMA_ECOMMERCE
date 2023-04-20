@@ -156,9 +156,9 @@ const cartItems = [
                         "Xuất xứ": "Việt Nam"
                     }
                 ],
-                vendorId: 'vendorId',
+                vendorId: 'vendorId2',
                 vendor: {
-                    id: 'vendorId',
+                    id: 'vendorId2',
                     name: 'Official Store 2'
                 }
             },

@@ -49,15 +49,15 @@
 }
 
 .containerNav {
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
   width: 100%;
-  position: -webkit-sticky; /* Safari */
-  position: sticky;
-  z-index: 2;
+  // position: -webkit-sticky; /* Safari */
+  // position: sticky;
+  z-index: 1;
   top: 0;
-  padding: 0;
-  row-gap: 0;
+  // padding: 0;
+  // row-gap: 0;
 }
 
 .navigation__container {
