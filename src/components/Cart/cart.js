@@ -1,6 +1,6 @@
 const cartItems = [
     {
-        id: 'cartItemId',
+        id: 'cartItemId1',
         varianceId: 'varianceId',
         variance: {
             id: 'varianceId',
@@ -56,7 +56,7 @@ const cartItems = [
         cartId: 'cartId'
     },
     {
-        id: 'cartItemId',
+        id: 'cartItemId2',
         varianceId: 'varianceId',
         variance: {
             id: 'varianceId',
@@ -111,7 +111,7 @@ const cartItems = [
         quantity: 2,
         cartId: 'cartId'
     }, {
-        id: 'cartItemId',
+        id: 'cartItemId3',
         varianceId: 'varianceId',
         variance: {
             id: 'varianceId',

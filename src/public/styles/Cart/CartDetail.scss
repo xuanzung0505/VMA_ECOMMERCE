@@ -195,7 +195,8 @@
       }
 
       & > .actionDelete {
-        cursor: pointer;
+        // background-color: black;
+        @include deleteButtonMixin();
       }
 
       & > .actionFindSimilar {
@@ -267,6 +268,8 @@
   }
 
   .cart__detail {
+    display: flex;
+
     & > .cart__row {
       @include navigationTextStyle();
       color: black;
@@ -304,6 +307,33 @@
 
           height: 1px;
           background-color: $transparent-color6;
+        }
+      }
+    }
+
+    &.empty {
+      margin-top: 50px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      flex-direction: column;
+      & > div {
+        &.image {
+          width: 120px;
+          height: 120px;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+
+        &.caption {
+          @include navigationTextStyle();
+          color: black;
+          font-size: 1.2 * $fontSize;
+          font-weight: bold;
+          color: $transparent-color4;
         }
       }
     }
@@ -363,7 +393,7 @@
         }
         & > .actionDelete {
           flex: 0 1 10px;
-          cursor: pointer;
+          @include deleteButtonMixin();
         }
         & > .actionSave {
           flex: 1 1 auto;

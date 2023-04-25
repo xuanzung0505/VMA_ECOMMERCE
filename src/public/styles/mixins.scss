@@ -19,3 +19,16 @@
     opacity: 80%;
   }
 }
+
+@mixin deleteButtonMixin {
+  button {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+  }
+
+  button:hover {
+    color: $main-color4;
+    transition: $transitionDuration;
+  }
+}

@@ -1,3 +1,4 @@
+import { useGlobalContext } from '..'
 import { CartDetail } from '../components/Cart/CartDetail'
 import { Navigation } from '../components/Cart/Navigation'
 
