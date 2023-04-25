@@ -58,6 +58,11 @@
   row-gap: 2px;
   height: auto;
   padding: $gap3 0;
+
+  & > a {
+    text-decoration: none;
+    color: black;
+  }
 }
 
 .category__section__content__item:hover {

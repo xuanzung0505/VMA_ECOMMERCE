@@ -8,6 +8,10 @@ import { App } from './routes/App'
 import { LoginPage } from './routes/LoginPage'
 import { CartPage } from './routes/CartPage'
 import { reducer } from './reducer'
+import {
+  ProductByCategoryPage,
+  categoryLoader,
+} from './routes/ProductByCategoryPage'
 
 const { cartItems } = require('./components/Cart/cart.js')
 
@@ -26,11 +30,7 @@ const router = createBrowserRouter([
     path: '/',
     element: <App />,
     children: [
-      //login
-      // {
-      //   path: '/login',
-      //   element: <LoginPage />,
-      // },
+      //category
     ],
     errorElement: <ErrorPage />,
   },
@@ -43,6 +43,11 @@ const router = createBrowserRouter([
     path: '/cart',
     element: <CartPage />,
     errorElement: <ErrorPage />,
+  },
+  {
+    path: '/:categoryId',
+    element: <ProductByCategoryPage />,
+    loader: categoryLoader,
   },
 ])
 
