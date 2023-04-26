@@ -1,5 +1,6 @@
 import { useLoaderData } from 'react-router-dom'
-import { Navigation } from '../components/App/navigation_section/Navigation'
+import { ProductCatalog } from '../components/ProductByCategory/ProductCatalog'
+import { Navigation } from '../components/ProductByCategory/Navigation'
 
 const objectName = 'category'
 
@@ -20,8 +21,9 @@ const ProductByCategoryPage = () => {
   const category: any = useLoaderData()
   console.log(category)
   return (
-    <div>
+    <div className="container">
       <Navigation />
+      <ProductCatalog />
     </div>
   )
 }

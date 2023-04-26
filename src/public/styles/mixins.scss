@@ -1,9 +1,49 @@
+@mixin navigationHeaderStyle {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  a {
+    @include navigationTextStyle();
+    text-decoration: none;
+  }
+
+  .divider {
+    width: 1.5px;
+    height: 12px;
+    background-color: white;
+    opacity: 50%;
+
+    &.cart {
+      background-color: $main-color4;
+      height: 30px;
+    }
+  }
+}
+
+@mixin navigationHeaderButtonStyle {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  column-gap: 5px;
+  cursor: pointer;
+}
+
 @mixin navigationTextStyle {
-  color: white;
+  // color: white;
   // font-size: 12px;
-  font-size: $fontSize2;
+  font-size: $fontSize;
   font-family: 'Noto Sans';
   font-weight: 400;
+}
+
+@mixin Navigation_login {
+  background-image: $gradient-color2;
+  color: $transparent-color3;
+  background-color: white;
+  // flex-direction: row;
+  // // justify-content: center;
+  // justify-content: space-between;
+  // align-items: center;
 }
 
 @mixin primaryButton {
@@ -31,4 +71,44 @@
     color: $main-color4;
     transition: $transitionDuration;
   }
+}
+
+@mixin containerMixin {
+  @include navigationTextStyle();
+  display: flex;
+  flex-direction: column;
+  background-image: $gradient-color;
+  height: $navigationHeight;
+  width: 100%;
+  // row-gap: $navigationRowGap;
+  overflow: visible;
+  align-items: center;
+
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+//width > screen-width
+@mixin containerChildMixin {
+  @media screen and (min-width: $screen-width) {
+    display: flex;
+    flex-direction: column;
+    height: $navigationHeight;
+    max-width: $screen-width;
+    // max-width: 100%;
+    // width: 80%;
+    padding: 10px $navigationPaddingLR;
+    row-gap: $navigationRowGap;
+  }
+
+  //width <= screen-width
+  display: flex;
+  flex-direction: column;
+  height: $navigationHeight;
+  width: 99%;
+  // max-width: 1400px;
+  // padding: 10px 10px;
+  row-gap: $navigationRowGap;
 }

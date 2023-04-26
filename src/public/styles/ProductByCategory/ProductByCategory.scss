@@ -1,0 +1,46 @@
+@import '../mixins';
+@import '../variables';
+
+.catalog__container {
+  @include containerMixin();
+}
+
+.catalog {
+  @include containerChildMixin();
+  & > .blank {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  & > .main {
+    display: flex;
+    flex-direction: row;
+
+    & > .catalog__sidebar {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+    }
+
+    & > .catalog__main {
+      &.productCatalog {
+        display: flex;
+        flex-direction: column;
+        flex: 15 1 auto;
+
+        & > .topbar {
+          display: flex;
+
+          & > .order {
+            display: flex;
+          }
+
+          & > .pagination {
+            display: flex;
+          }
+        }
+      }
+    }
+  }
+}

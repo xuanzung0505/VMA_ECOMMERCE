@@ -33,7 +33,7 @@ const CategorySection = () => {
 
   return (
     <div className="category__section__container">
-      <div className="category__section">
+      <div className="category__section appPage">
         <div className="category__section__header">Danh mục</div>
         <div className="category__section__content">
           {categoryList.map((item: any, i: any) => {

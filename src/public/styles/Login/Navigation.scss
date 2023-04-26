@@ -1,0 +1,84 @@
+@import '../variables';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=swap');
+@import '../mixins';
+
+.navigation__container {
+  @include containerMixin();
+  &.login {
+    background-image: $gradient-color2;
+    // color: black;
+    // background-color: white;
+
+    .navigation {
+      @include containerChildMixin();
+      @include Navigation_login();
+
+      background-image: none;
+      background-color: white;
+
+      //   & > .navigation__header {
+      //     display: flex;
+      //     justify-content: space-between;
+
+      //     .navigation__header__left {
+      //       @include navigationHeaderStyle();
+
+      //       color: black;
+      //     }
+
+      //     .navigation__header__right {
+      //       @include navigationHeaderStyle();
+
+      //       &.login {
+      //         color: black;
+
+      //         a {
+      //           font-size: 1.2 * $fontSize2;
+      //           color: $main-color3;
+      //         }
+      //       }
+      //     }
+
+      //     .navigation__header__button {
+      //       @include navigationTextStyle();
+      //       @include navigationHeaderButtonStyle();
+      //     }
+      //     .navigation__header__button:hover {
+      //       @include navigationTextStyle();
+      //       opacity: 50%;
+      //     }
+
+      //     .navigation__header__button__connect {
+      //       @include navigationHeaderButtonStyle();
+      //       cursor: default;
+      //     }
+      //   }
+
+      & > .navigation__header {
+        display: flex;
+        justify-content: space-between;
+
+        & > .navigation__header__left {
+          @include navigationHeaderStyle();
+
+          .navigation__body__logo img {
+            // max-width: 150px;
+            width: $fontSize2 * 15;
+          }
+        }
+
+        & > .navigation__header__right {
+          @include navigationHeaderStyle();
+
+          a {
+            color: $main-color4;
+          }
+        }
+      }
+    }
+  }
+}
+
+.bigText {
+  font-size: 2 * $fontSize2;
+}

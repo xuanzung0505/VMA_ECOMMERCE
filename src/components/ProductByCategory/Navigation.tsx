@@ -1,12 +1,12 @@
-import '../../../public/styles/App/Navigation.scss'
-import shopee_url from '../../../public/assets/Shopee-Logo-inverted.png'
-import cart_empty_url from '../../../public/assets/Cart-Empty.png'
+import '../../public/styles/Navigation.scss'
+import shopee_url from '../../public/assets/Shopee-Logo-inverted.png'
+import cart_empty_url from '../../public/assets/Cart-Empty.png'
 
 import { Link } from 'react-router-dom'
 
-export const Navigation = () => {
+export const Navigation = ({ category }) => {
   return (
-    <div className="navigation__container index">
+    <div className="navigation__container">
       <nav className="navigation">
         <div className="navigation__header">
           <div className="navigation__header__left">
@@ -42,9 +42,7 @@ export const Navigation = () => {
               Tiếng Việt
               <i className="fa-solid fa-chevron-down fa-lg"></i>
             </div>
-            <div className="navigation__header__button">
-              <Link to="/register">Đăng Ký</Link>
-            </div>
+            <div className="navigation__header__button">Đăng Ký</div>
             <div className="divider"></div>
             <div className="navigation__header__button">
               <Link to="/login">Đăng Nhập</Link>
@@ -64,6 +62,8 @@ export const Navigation = () => {
                   type="search"
                   placeholder="Đăng ký và nhận voucher lên đến 70k!"
                 ></input>
+                <div className="divider productCatalog"></div>
+                <div className="categoryOption">hehe</div>
                 <button>
                   <i
                     className="fa-solid fa-magnifying-glass"

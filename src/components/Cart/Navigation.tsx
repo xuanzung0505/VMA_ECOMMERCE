@@ -1,13 +1,14 @@
 import cart_empty_url from '../../../public/assets/Cart-Empty.png'
 import shopee_url from '../../public/assets/Shopee-Logo.png'
-import '../../public/styles/Navigation.scss'
+// import '../../public/styles/Navigation.scss'
+import '../../public/styles/Cart/Navigation.scss'
 
 import { Link } from 'react-router-dom'
 
 export const Navigation = () => {
   return (
     <div className="containerNav">
-      <div className="navigation__container">
+      <div className="navigation__container cart">
         <nav className="navigation">
           <div className="navigation__header">
             <div className="navigation__header__left">
@@ -43,7 +44,9 @@ export const Navigation = () => {
                 Tiếng Việt
                 <i className="fa-solid fa-chevron-down fa-lg"></i>
               </div>
-              <div className="navigation__header__button">Đăng Ký</div>
+              <div className="navigation__header__button">
+                <Link to="/login">Đăng Ký</Link>
+              </div>
               <div className="divider"></div>
               <div className="navigation__header__button">
                 <Link to="/login">Đăng Nhập</Link>
@@ -55,14 +58,14 @@ export const Navigation = () => {
       <div className="navigation__container login">
         <div className="navigation login">
           <div className="navigation__header">
-            <div className="navigation__header__left cart">
-              <div className="navigation__body__logo login">
+            <div className="navigation__header__left">
+              <div className="navigation__body__logo">
                 <Link to="/">
                   <img src={shopee_url}></img>
                 </Link>
               </div>
               <div className="divider cart"></div>
-              <div className="bigText cart">Giỏ hàng</div>
+              <div className="bigText">Giỏ hàng</div>
             </div>
             <div className="navigation__header__right cart">
               <div className="navigation__body__searchSection cart">
