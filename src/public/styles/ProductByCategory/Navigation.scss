@@ -4,9 +4,7 @@
 
 .navigation__container {
   @include containerMixin();
-  background-image: $gradient-color;
-
-  &.index {
+  &.productCatalog {
     //width > screen-width
     @media screen and (min-width: $screen-width) {
       .navigation {
@@ -106,48 +104,95 @@
           row-gap: 7px;
           margin-top: 10px;
 
-          // & > .navigation__body__searchSection__searchbox {
-          //   background-color: white;
-          //   display: flex;
-          //   border-radius: $radius;
-          //   padding: 3px;
-
-          //   & > input {
-          //     border: none;
-          //     flex: 14 1 50px;
-          //     height: 35px;
-          //     padding: 10px;
-          //     //   border: 1px solid black;
-          //     border-radius: $radius $radius 0px $radius;
-          //   }
-
-          //   & > button {
-          //     flex: 1 1 10px;
-          //     border: none;
-          //     border-radius: $radius $radius 0px $radius;
-          //     background-color: $main-color3;
-          //     cursor: pointer;
-
-          //     &:hover {
-          //       opacity: 80%;
-          //     }
-          //   }
-          // }
-
           .navigation__body__searchSection__searchbox {
             background-color: white;
             display: flex;
             border-radius: $radius;
             padding: 3px;
-
-            &.cart {
-            }
+            // justify-content: center;
+            align-items: center;
 
             & > .categoryOption {
               display: flex;
               justify-content: center;
               align-items: center;
               color: black;
+              height: $dividerHeight;
+              margin: 0px 5px;
+
+              position: relative;
+
+              div {
+                border: none;
+                background-color: white;
+                @include navigationTextStyle();
+                font-size: 1.2 * $fontSize;
+                width: 120px;
+
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+
+                pointer-events: stroke;
+              }
+
+              i {
+                color: $transparent-color4;
+              }
+
+              .options {
+                position: absolute;
+                top: 35px;
+                right: -5px;
+                width: auto;
+
+                display: flex;
+                flex-direction: column;
+
+                border: 1px solid black;
+
+                border-radius: $radius;
+                background-color: white;
+                @include navigationTextStyle();
+                font-size: 1.2 * $fontSize;
+
+                // .optionfake {
+                //   width: 180px;
+                //   height: 0px;
+                //   border: none;
+                //   // display: none;
+                //   visibility: hidden;
+                // }
+
+                .option {
+                  width: auto;
+                  height: 30px;
+                  // padding: 5px 10px;
+                  margin: 5px 10px;
+
+                  display: flex;
+                  flex-direction: row;
+                  justify-content: space-between;
+                  align-items: center;
+
+                  i {
+                    margin-left: 5px;
+                    color: $main-color4;
+                  }
+
+                  &:hover {
+                    display: flex;
+                  }
+
+                  display: none;
+                }
+              }
+
+              &:hover {
+                .option {
+                  display: flex;
+                }
+              }
             }
 
             & > input {
@@ -172,6 +217,7 @@
               background-color: $main-color3;
               cursor: pointer;
 
+              height: $dividerHeight + 5px;
               &:hover {
                 opacity: 80%;
               }
@@ -257,49 +303,3 @@
 .bigText {
   font-size: 2 * $fontSize2;
 }
-
-// .navigation__header {
-//   display: flex;
-//   justify-content: space-between;
-
-//   .navigation__header__left {
-//     @include navigationHeaderStyle();
-
-//     &.login {
-//       color: black;
-//     }
-//   }
-
-//   .navigation__header__right {
-//     @include navigationHeaderStyle();
-
-//     &.login {
-//       color: black;
-
-//       a {
-//         font-size: 1.2 * $fontSize2;
-//         color: $main-color3;
-//       }
-//     }
-//   }
-
-//   .navigation__header__button {
-//     @include navigationTextStyle();
-//     @include navigationHeaderButtonStyle();
-//   }
-//   .navigation__header__button:hover {
-//     @include navigationTextStyle();
-//     opacity: 50%;
-//   }
-
-//   .navigation__header__button__connect {
-//     @include navigationHeaderButtonStyle();
-//     cursor: default;
-//   }
-// }
-
-// .navigation__body__logo {
-//   flex: 1 1 $navigationBodyLogoMinFlex;
-//   display: flex;
-//   justify-content: center;
-// }

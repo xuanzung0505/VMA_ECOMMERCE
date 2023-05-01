@@ -1,33 +1,8 @@
-import { useEffect, useState } from 'react'
 import '../../../public/styles/App/CategorySection.scss'
 import { Link, useLoaderData } from 'react-router-dom'
 
-// const { categoryList } = require('./category.js')
-
-const objectName = 'category'
-
-// const categoryLoader = async (params: any) => {
-//   let categoryList: any = []
-
-//   fetch(`http://${process.env.DOMAIN}:${process.env.PORT}/api/${objectName}`)
-//     .then((res) => res.json())
-//     .then((result) => {
-//       categoryList = result.docs
-//     })
-
-//   return categoryList
-// }
-
-const CategorySection = () => {
-  const [categoryList, setCategoryList] = useState([])
-
-  useEffect(() => {
-    fetch(`http://${process.env.DOMAIN}:${process.env.PORT}/api/${objectName}`)
-      .then((res) => res.json())
-      .then((result) => {
-        setCategoryList(result.docs)
-      })
-  }, [categoryList])
+const CategorySection = ({ categoryList }) => {
+  // const [categoryList, setCategoryList] = useState([])
 
   // const categoryList: any = useLoaderData()
 

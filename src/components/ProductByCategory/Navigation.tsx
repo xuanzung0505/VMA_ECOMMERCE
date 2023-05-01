@@ -1,4 +1,4 @@
-import '../../public/styles/Navigation.scss'
+import '../../public/styles/ProductByCategory/Navigation.scss'
 import shopee_url from '../../public/assets/Shopee-Logo-inverted.png'
 import cart_empty_url from '../../public/assets/Cart-Empty.png'
 
@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 export const Navigation = ({ category }) => {
   return (
-    <div className="navigation__container">
+    <div className="navigation__container productCatalog">
       <nav className="navigation">
         <div className="navigation__header">
           <div className="navigation__header__left">
@@ -63,7 +63,18 @@ export const Navigation = ({ category }) => {
                   placeholder="Đăng ký và nhận voucher lên đến 70k!"
                 ></input>
                 <div className="divider productCatalog"></div>
-                <div className="categoryOption">hehe</div>
+                <div className="categoryOption">
+                  <div>Trong {category.title}</div>
+                  <i className="fa-solid fa-chevron-down fa-xs"></i>
+                  <div className="options">
+                    {/* <div className="optionfake"></div> */}
+                    <div className="option">
+                      Trong {category.title}
+                      <i className="fa-solid fa-check fa-sm"></i>
+                    </div>
+                    <div className="option">Trong Shopee</div>
+                  </div>
+                </div>
                 <button>
                   <i
                     className="fa-solid fa-magnifying-glass"

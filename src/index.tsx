@@ -13,6 +13,8 @@ import {
   categoryLoader,
 } from './routes/ProductByCategoryPage'
 
+import './public/styles/index.scss'
+
 const { cartItems } = require('./components/Cart/cart.js')
 
 const initialState = {

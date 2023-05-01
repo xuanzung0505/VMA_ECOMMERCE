@@ -14,6 +14,8 @@ $transparent-color4: rgba(0, 0, 0, 0.5);
 $transparent-color5: rgba(0, 0, 0, 0.05);
 $transparent-color6: rgba(0, 0, 0, 0.15);
 $transparent-color7: rgba(0, 0, 0, 0.6);
+$transparent-color8: rgba(0, 0, 0, 0.03);
+$transparent-color9: rgba(0, 0, 0, 0);
 // $transparent-color7: rgba(255, 255, 255, 0.15);
 
 $gradient-color: linear-gradient($main-color, $main-color2);
@@ -46,3 +48,9 @@ $fontSize: 12px;
 $fontSize2: 1.6vmin;
 
 $fontFamily: 'Noto Sans';
+
+$fontWeight: 600;
+$fontWeight2: 600;
+
+//divider
+$dividerHeight: 30px;

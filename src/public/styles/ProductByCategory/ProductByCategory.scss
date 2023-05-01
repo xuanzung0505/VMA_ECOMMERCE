@@ -3,6 +3,33 @@
 
 .catalog__container {
   @include containerMixin();
+  // background-image: $gradient-color2;
+  z-index: 0;
+}
+
+@mixin filterListMixin {
+  & > .title {
+    padding: 10px 0;
+    align-items: center;
+    // background-color: black;
+  }
+  & > .options {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin-bottom: 10px;
+
+    & > .option {
+      &.add {
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+        & > i {
+          color: $transparent-color4;
+        }
+      }
+    }
+  }
 }
 
 .catalog {
@@ -16,28 +43,337 @@
   & > .main {
     display: flex;
     flex-direction: row;
-
+    column-gap: 15px;
     & > .catalog__sidebar {
       display: flex;
       flex-direction: column;
       flex: 1 1 auto;
+      row-gap: 5px;
+      @include navigationTextStyle();
+
+      & > .category__section {
+        font-size: 1.2 * $fontSize;
+        & > .title {
+          @include categoryTitle();
+          margin: 15px 0;
+          display: flex;
+          flex-direction: row;
+          column-gap: 10px;
+          align-items: center;
+        }
+        & > .category__list {
+          display: flex;
+          flex-direction: column;
+          row-gap: 10px;
+          margin: 15px 0;
+          & > a {
+            text-decoration: none;
+            color: black;
+            & > .item {
+              &.selected {
+                color: $main-color4;
+                font-weight: $fontWeight;
+              }
+
+              & > i {
+                color: $transparent-color4;
+                color: red;
+              }
+            }
+          }
+          & > .item {
+            display: flex;
+            align-items: center;
+            column-gap: 10px;
+            & > i {
+              color: $transparent-color4;
+            }
+          }
+        }
+      }
+
+      & > .category__filter {
+        font-size: 1.2 * $fontSize;
+        & > .title {
+          @include categoryTitle();
+          margin: 10px 0;
+          display: flex;
+          flex-direction: row;
+          // column-gap: 10px;
+          align-items: center;
+        }
+
+        & > .filter__list {
+          & > .by-category {
+            @include filterListMixin();
+          }
+          & > .by-location {
+            @include filterListMixin();
+          }
+
+          & > .by-transportationUnit {
+            @include filterListMixin();
+          }
+
+          & > .by-brand {
+            @include filterListMixin();
+          }
+
+          & > .by-unitPriceRange {
+            @include filterListMixin();
+
+            & > .form {
+              display: flex;
+              flex-direction: column;
+              row-gap: 15px;
+              margin-bottom: 10px;
+              & > .rangeBox {
+                display: flex;
+                // width: 100%;
+                column-gap: 5px;
+                align-items: center;
+                justify-content: space-between;
+                & > input {
+                  flex: 1 1 auto;
+                  width: 30px;
+                  height: 20px;
+                  // width: 5;
+                }
+
+                & > .divider-horizontal {
+                  width: 10px;
+                }
+              }
+              & > button {
+                // width: 50%;
+                // max-width: 100px;
+                max-width: 100%;
+                @include primaryButton();
+                text-align: center;
+                border-radius: $radius;
+              }
+            }
+          }
+
+          & > .by-rating {
+            @include filterListMixin();
+          }
+        }
+
+        & > .deleteAll {
+          margin: 10px 0px;
+
+          & > button {
+            @include primaryButton();
+            width: 100%;
+            border-radius: $radius;
+          }
+        }
+      }
     }
 
     & > .catalog__main {
-      &.productCatalog {
+      display: flex;
+      flex-direction: column;
+      flex: 15 1 30%;
+
+      & > .topbar {
+        padding: 15px 20px;
         display: flex;
-        flex-direction: column;
-        flex: 15 1 auto;
+        justify-content: space-between;
+        background-color: $transparent-color5;
 
-        & > .topbar {
+        & > .order {
+          font-size: 1.2 * $fontSize;
           display: flex;
+          column-gap: 15px;
+          align-items: center;
 
-          & > .order {
-            display: flex;
+          & > .caption {
+            color: $transparent-color3;
           }
 
-          & > .pagination {
+          & > .options {
             display: flex;
+            column-gap: 10px;
+
+            & > button {
+              @include primaryButton();
+              background-color: white;
+              color: black;
+              padding: 10px 20px;
+              font-size: 1.2 * $fontSize;
+              border-radius: $radius;
+
+              &.selected {
+                background-color: $main-color4;
+                color: white;
+              }
+            }
+          }
+        }
+
+        & > .pagination {
+          display: flex;
+          align-items: center;
+
+          & > .button-group {
+            & > button {
+              @include primaryButton2();
+              opacity: 0.3;
+              pointer-events: none;
+
+              width: 35px;
+
+              &.active {
+                opacity: 1;
+                @include primaryButton2();
+                pointer-events: all;
+              }
+            }
+          }
+
+          & > .indicator {
+            font-size: 1.3 * $fontSize;
+          }
+        }
+      }
+
+      & > .items {
+        display: grid;
+        margin-top: 15px;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+        justify-content: space-between;
+
+        & > a {
+          text-decoration: none;
+
+          & > .item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            // row-gap: 5px;
+            // border: 1px solid black;
+            background-color: white;
+            box-shadow: 1px 1px 5px -1px $transparent-color5;
+
+            &:hover {
+              transform: translateY(-1px);
+              box-shadow: 1px 1px 7px 2px $transparent-color5;
+            }
+
+            & > .logo {
+              // width: 200px;
+              width: 100%;
+              height: 220px;
+              // height: 100%;
+              background-size: cover;
+              background-repeat: no-repeat;
+              background-position: center;
+              // border: 1px solid black;
+            }
+
+            & > .banner_love {
+              position: relative;
+              top: -210px;
+              left: -80px;
+              background-color: $main-color4;
+              color: white;
+              padding: 0px 3px;
+            }
+
+            & > .title {
+              width: 90%;
+              height: 40px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              color: black;
+
+              font-size: 1.1 * $fontSize;
+              // margin: 0px 4px;
+            }
+
+            & > .price {
+              width: 90%;
+              color: $main-color4;
+              font-size: 1.5 * $fontSize;
+              padding: 15px 0px 5px;
+            }
+            & > .ratingSold {
+              width: 90%;
+              display: flex;
+              column-gap: 5px;
+              padding: 5px 0px;
+              font-size: 1.1 * $fontSize;
+              & > .rating {
+                display: flex;
+              }
+
+              & > .sold {
+                color: black;
+              }
+            }
+
+            & > .location {
+              width: 90%;
+              height: 30px;
+              color: black;
+              font-size: 1.1 * $fontSize;
+            }
+          }
+        }
+      }
+
+      & > .bottombar {
+        display: flex;
+        column-gap: 15px;
+        justify-content: center;
+        align-items: center;
+        margin: 30px 0px;
+
+        & > button {
+          border: none;
+          background-color: $transparent-color9;
+          color: $transparent-color4;
+          font-size: 1.5 * $fontSize;
+          padding: 5px 15px;
+          border-radius: $radius;
+
+          &.active {
+            @include primaryButton();
+            font-size: 1.5 * $fontSize;
+            padding: 5px 15px;
+            border-radius: $radius;
+            &:hover {
+              opacity: 1;
+            }
+          }
+
+          &.prev {
+            font-size: 1.5 * $fontSize;
+            padding: 5px 15px;
+            border-radius: $radius;
+            &.active {
+              // background-color: white;
+              background-color: $transparent-color9;
+              color: $transparent-color4;
+              opacity: 1;
+            }
+          }
+
+          &.next {
+            font-size: 1.5 * $fontSize;
+            padding: 5px 15px;
+            border-radius: $radius;
+            &.active {
+              // background-color: white;
+              background-color: $transparent-color9;
+              color: $transparent-color4;
+              opacity: 1;
+            }
           }
         }
       }
