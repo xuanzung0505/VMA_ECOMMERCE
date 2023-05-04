@@ -192,33 +192,45 @@
 
         .navigation__body__cart {
           flex: 1 1 $fontSize2 * 5;
+          // display: inline-flex;
+          height: 50px;
           display: flex;
           justify-content: center;
-          pointer-events: none;
+          align-items: center;
+          // pointer-events: none;
+
+          cursor: pointer;
+          pointer-events: auto;
+          position: relative;
 
           a {
+            display: flex;
             text-decoration: none;
           }
 
           i {
-            pointer-events: auto;
+            // pointer-events: auto;
             cursor: pointer;
             // background-color: white;
           }
 
-          &:hover + .navigation__body__cart__info {
+          &:hover > .navigation__body__cart__info {
             visibility: visible;
+            // display: flex;
+            // display: inline-flex;
+
             // transform: scale(1.25);
-            width: 400px;
-            height: 250px;
+            // width: 400px;
+            // height: 250px;
             opacity: 1;
           }
         }
 
         .navigation__body__cart__info {
           position: absolute;
-          top: 100px;
-          right: $navigationPaddingLR + $navigationBodyLogoMinFlex * 0.5;
+          top: 40px;
+          // right: $navigationPaddingLR + $navigationBodyLogoMinFlex * 0.5;
+          right: 90px;
           width: 400px;
           height: 250px;
           opacity: 0;
@@ -227,6 +239,7 @@
           border: 1px solid black;
           border-radius: $radius;
           display: flex;
+          // display: none;
           justify-content: center;
           align-items: center;
           visibility: hidden;
@@ -235,6 +248,12 @@
           z-index: 1;
           // box-shadow: $navigationBodyCartInfoBoxShadow $navigationBodyCartInfoBoxShadow
           //   20px;
+
+          // &:hover {
+          //   // visibility: visible;
+          //   display: inline-flex;
+          //   // display: flex;
+          // }
 
           .navigation__body__cart__info__empty {
             display: flex;

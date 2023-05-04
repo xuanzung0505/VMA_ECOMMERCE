@@ -5,7 +5,7 @@ import '../../public/styles/Cart/Navigation.scss'
 
 import { Link } from 'react-router-dom'
 
-export const Navigation = () => {
+export const Navigation = ({ user }) => {
   return (
     <div className="containerNav">
       <div className="navigation__container cart">
@@ -44,13 +44,20 @@ export const Navigation = () => {
                 Tiếng Việt
                 <i className="fa-solid fa-chevron-down fa-lg"></i>
               </div>
-              <div className="navigation__header__button">
-                <Link to="/login">Đăng Ký</Link>
-              </div>
-              <div className="divider"></div>
-              <div className="navigation__header__button">
-                <Link to="/login">Đăng Nhập</Link>
-              </div>
+
+              {!!user ? (
+                <div className="navigation__header__button">{user.email}</div>
+              ) : (
+                <>
+                  <div className="navigation__header__button">
+                    <Link to="/register">Đăng Ký</Link>
+                  </div>
+                  <div className="divider"></div>
+                  <div className="navigation__header__button">
+                    <Link to="/login">Đăng Nhập</Link>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </nav>

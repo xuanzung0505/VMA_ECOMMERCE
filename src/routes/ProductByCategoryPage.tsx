@@ -1,9 +1,10 @@
-import { useLoaderData } from 'react-router-dom'
+import { useLoaderData, useLocation, useSearchParams } from 'react-router-dom'
 import { ProductCatalog } from '../components/ProductByCategory/ProductCatalog'
 import { Navigation } from '../components/ProductByCategory/Navigation'
 import { categoryServices } from '../services/categoryServices'
 import { useEffect, useState } from 'react'
 import { productServices } from '../services/productServices'
+import { useGlobalContext } from '..'
 
 async function categoryLoader({ params }) {
   // let category: any = await fetch(
@@ -25,11 +26,27 @@ async function categoryLoader({ params }) {
 }
 
 const ProductByCategoryPage = () => {
+  const { user } = useGlobalContext()
+
+  const [productsPagi, setProductsPagi] = useState([])
+  //
   const { category }: any = useLoaderData()
   const [categoryList, setCategoryList] = useState([])
   //
   // const [productsPagi, setProductsPagi] = useState([])
-  const limit = 1
+  // const limit = 1
+
+  const useQuery = () => new URLSearchParams(useLocation().search)
+  const query = useQuery()
+  // query.deleteA
+
+  //search query
+  const [searchParams, setSearchParams] = useSearchParams(query)
+
+  //data limit per page
+  // const itemsPerPage = 20
+  // const itemsPerPage = query.get('limit')
+  const itemsPerPage = 10
 
   useEffect(() => {
     categoryServices
@@ -55,14 +72,46 @@ const ProductByCategoryPage = () => {
   // }, [category])
 
   // console.log(productsPagi)
+
+  useEffect(() => {
+    productServices
+      .getList({
+        limit: itemsPerPage,
+        categoryId: category._id,
+        page: query.get('page'),
+        keyword: query.get('keyword'),
+        minPrice: query.get('minPrice'),
+        maxPrice: query.get('maxPrice'),
+      })
+      .then((res) => {
+        setProductsPagi(res.data)
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth',
+        })
+      })
+  }, [searchParams, category])
+
   return (
     <div className="container">
-      <Navigation category={category} />
+      <Navigation
+        user={user}
+        category={category} //
+        // useQuery={useQuery}
+        query={query}
+        productsPagi={productsPagi}
+        setProductsPagi={setProductsPagi}
+        setSearchParams={setSearchParams}
+      />
       <ProductCatalog
         category={category}
         categoryList={categoryList}
-        // productsPagi={productsPagi}
-        // setProductsPagi={setProductsPagi}
+        // useQuery={useQuery}
+        query={query}
+        productsPagi={productsPagi}
+        setProductsPagi={setProductsPagi}
+        setSearchParams={setSearchParams}
       />
     </div>
   )

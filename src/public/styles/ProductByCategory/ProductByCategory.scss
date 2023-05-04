@@ -101,6 +101,10 @@
           flex-direction: row;
           // column-gap: 10px;
           align-items: center;
+
+          & > i {
+            margin-right: 10px;
+          }
         }
 
         & > .filter__list {
@@ -138,6 +142,17 @@
                   width: 30px;
                   height: 20px;
                   // width: 5;
+
+                  /* Remove Arrows/Spinners */
+                  /* Chrome, Safari, Edge, Opera */
+                  &::-webkit-outer-spin-button,
+                  &::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                  }
+
+                  /* Firefox */
+                  -moz-appearance: textfield;
                 }
 
                 & > .divider-horizontal {
@@ -157,6 +172,14 @@
 
           & > .by-rating {
             @include filterListMixin();
+            & > .options {
+              & > .option {
+                display: flex;
+                & > .stars {
+                  margin-right: 20px;
+                }
+              }
+            }
           }
         }
 
@@ -310,6 +333,7 @@
               font-size: 1.1 * $fontSize;
               & > .rating {
                 display: flex;
+                align-items: center;
               }
 
               & > .sold {

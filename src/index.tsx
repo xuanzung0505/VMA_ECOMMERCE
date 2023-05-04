@@ -14,10 +14,23 @@ import {
 } from './routes/ProductByCategoryPage'
 
 import './public/styles/index.scss'
+import { NotiContainer } from './utils/notification'
+
+import { useCookies } from 'react-cookie'
+
+// import { useJwt } from 'react-jwt'
+// import { decodeToken } from 'react-jwt'
+// import { isExpired } from 'react-jwt'
+import { userServices } from './services/userServices'
+import jwt from 'jsonwebtoken'
 
 const { cartItems } = require('./components/Cart/cart.js')
 
 const initialState = {
+  //user
+  user: null,
+
+  //cart
   loading: false,
   cart: [],
   groupedCartItems: [],
@@ -55,7 +68,62 @@ const router = createBrowserRouter([
 
 const CommonContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
+  const [cookies, setCookie, removeCookie] = useCookies()
+  // const { decodedToken, isExpired, reEvaluateToken } = useJwt('')
 
+  //load cookies
+  const getDataFromCookies = async (cookies: any) => {
+    const secret: any = process.env.JWT_TOKEN_SECRET
+    //token
+    // const decodedToken: any = jwt.decode(cookies.token, { complete: true })
+    if (!!cookies.token) {
+      jwt.verify(cookies.token, secret, (err: any, decodedToken: any) => {
+        if (!!err) {
+          // console.log(err)
+          removeCookie('token')
+        }
+        if (!!decodedToken) {
+          // console.log(decodedToken)
+          userServices.getById(decodedToken.userId).then((res) => {
+            // console.log(res.data)
+            const user = res.data
+            delete user.password
+            setUser(user)
+            // console.log(state.user)
+          })
+        }
+      })
+    }
+    // if (!!decodedToken) {
+    //   console.log(decodedToken)
+    //   console.log(new Date(decodedToken.payload.exp))
+
+    //   const tokenExpired = decodedToken.payload.exp < new Date().getTime()
+
+    //   console.log('token is expired:' + tokenExpired)
+
+    //   if (tokenExpired) removeCookie('token')
+
+    //   if (tokenExpired === false) {
+    //     userServices.getById(decodedToken.userId).then((res) => {
+    //       // console.log(res.data)
+    //       const user = res.data
+    //       delete user.password
+    //       setUser(user)
+    //       // console.log(state.user)
+    //     })
+    //   }
+    // }
+
+    //other datas
+  }
+
+  //user
+  const setUser = (user: any) => {
+    dispatch({ type: 'SET_USER', payload: { user } })
+  }
+
+  //cart
   const toggleQuantity = (id: any, type: any) => {
     dispatch({ type: 'TOGGLE_QUANTITY', payload: { id, type } })
   }
@@ -85,6 +153,10 @@ const CommonContextProvider = ({ children }) => {
   }
 
   useEffect(() => {
+    getDataFromCookies(
+      cookies
+      //  ,decodedToken, isExpired, reEvaluateToken
+    )
     fetchCart()
   }, [])
 
@@ -96,6 +168,13 @@ const CommonContextProvider = ({ children }) => {
     <CommonContext.Provider
       value={{
         ...state,
+        //cookie
+        getDataFromCookies,
+
+        //user
+        setUser,
+
+        //cart
         toggleQuantity,
         fetchCart,
         toggleSelect,
@@ -114,9 +193,12 @@ const useGlobalContext = () => {
 }
 
 ReactDOM.render(
-  <CommonContextProvider>
-    <RouterProvider router={router} />
-  </CommonContextProvider>,
+  <>
+    <NotiContainer />
+    <CommonContextProvider>
+      <RouterProvider router={router} />
+    </CommonContextProvider>
+  </>,
   document.getElementById('root')
 )
 

@@ -2,6 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const Dotenv = require('dotenv-webpack');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, '..', './src/index.tsx'),
@@ -48,7 +49,8 @@ module.exports = {
         noErrorOnMissing: true
       }]
     }),
-    new Dotenv()
+    new Dotenv(),
+    new NodePolyfillPlugin(),
   ],
   stats: 'errors-only',
 }

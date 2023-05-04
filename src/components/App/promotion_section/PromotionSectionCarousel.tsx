@@ -28,7 +28,7 @@ const PromotionSectionCarousel = () => {
     }
   }, [index])
 
-  console.log('index:' + index)
+  // console.log('index:' + index)
   return (
     <div className="promotion__section__banner__carousel">
       {bannerList.map((item: any, id: any) => {

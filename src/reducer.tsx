@@ -28,6 +28,13 @@ const groupByVendorName = (cartItems: any[]) => {
 }
 
 function reducer(state: any, action: any) {
+  //user
+  if (action.type === 'SET_USER') {
+    state.user = action.payload.user
+    return { ...state }
+  }
+
+  //cart
   if (action.type === 'TOGGLE_QUANTITY') {
     let tempCart = state.cart.map((cartItem: any, index: number) => {
       if (cartItem.id === action.payload.id) {

@@ -3,9 +3,10 @@ import { CartDetail } from '../components/Cart/CartDetail'
 import { Navigation } from '../components/Cart/Navigation'
 
 const CartPage = () => {
+  const { user } = useGlobalContext()
   return (
     <div className="cart__container">
-      <Navigation />
+      <Navigation user={user} />
       <CartDetail />
     </div>
   )

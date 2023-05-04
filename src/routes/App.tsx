@@ -4,12 +4,15 @@ import { PromotionSection } from '../components/App/promotion_section/PromotionS
 import { CategorySection } from '../components/App/category_section/Category'
 import { useEffect, useState } from 'react'
 import { categoryServices } from '../services/categoryServices'
+import { useGlobalContext } from '..'
 // import * as dotenv from 'dotenv'
 
 // dotenv.config()
 
 export const App = () => {
   const [categoryList, setCategoryList] = useState([])
+  const { user } = useGlobalContext()
+  // console.log(user)
 
   useEffect(() => {
     // fetch(`http://${process.env.DOMAIN}:${process.env.PORT}/api/${objectName}`)
@@ -28,7 +31,7 @@ export const App = () => {
 
   return (
     <div className="container">
-      <Navigation />
+      <Navigation user={user} />
       <PromotionSection />
       <CategorySection categoryList={categoryList} />
     </div>

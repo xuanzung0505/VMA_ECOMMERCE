@@ -4,7 +4,7 @@ import cart_empty_url from '../../../public/assets/Cart-Empty.png'
 
 import { Link } from 'react-router-dom'
 
-export const Navigation = () => {
+export const Navigation = ({ user }) => {
   return (
     <div className="navigation__container index">
       <nav className="navigation">
@@ -42,13 +42,19 @@ export const Navigation = () => {
               Tiếng Việt
               <i className="fa-solid fa-chevron-down fa-lg"></i>
             </div>
-            <div className="navigation__header__button">
-              <Link to="/register">Đăng Ký</Link>
-            </div>
-            <div className="divider"></div>
-            <div className="navigation__header__button">
-              <Link to="/login">Đăng Nhập</Link>
-            </div>
+            {!!user ? (
+              <div className="navigation__header__button">{user.email}</div>
+            ) : (
+              <>
+                <div className="navigation__header__button">
+                  <Link to="/register">Đăng Ký</Link>
+                </div>
+                <div className="divider"></div>
+                <div className="navigation__header__button">
+                  <Link to="/login">Đăng Nhập</Link>
+                </div>
+              </>
+            )}
           </div>
         </div>
         <div className="navigation__body">
@@ -93,15 +99,13 @@ export const Navigation = () => {
                 style={{ color: '#ffffff' }}
               ></i>
             </Link>
-            {/* <a href="/cart">
-              <i className="fa-solid fa-cart-shopping fa-2xl"></i>
-            </a> */}
-          </div>
-          <div className="navigation__body__cart__info">
-            <div className="navigation__body__cart__info__empty">
-              <img src={cart_empty_url}></img>
-              <div className="navigation__body__cart__info__empty__caption">
-                Chưa Có Sản Phẩm
+
+            <div className="navigation__body__cart__info">
+              <div className="navigation__body__cart__info__empty">
+                <img src={cart_empty_url}></img>
+                <div className="navigation__body__cart__info__empty__caption">
+                  Chưa Có Sản Phẩm
+                </div>
               </div>
             </div>
           </div>

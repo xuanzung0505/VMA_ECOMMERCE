@@ -2,9 +2,70 @@ import '../../public/styles/ProductByCategory/Navigation.scss'
 import shopee_url from '../../public/assets/Shopee-Logo-inverted.png'
 import cart_empty_url from '../../public/assets/Cart-Empty.png'
 
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
+import { useState } from 'react'
+import { productServices } from '../../services/productServices'
 
-export const Navigation = ({ category }) => {
+const SearchField = ({ keyword, setKeyword }) => {
+  const handleChange = (e: any) => {
+    // console.log(e)
+    setKeyword(e.target.value)
+  }
+
+  return (
+    <input
+      type="search"
+      placeholder="Đăng ký và nhận voucher lên đến 70k!"
+      onChange={handleChange}
+      value={keyword}
+    ></input>
+  )
+}
+
+const SearchButton = ({
+  query, //
+  setSearchParams,
+  keyword,
+  // setProductsPagi,
+}) => {
+  const handleClick = () => {
+    query.set('keyword', keyword)
+    setSearchParams(query)
+  }
+
+  return (
+    <button onClick={handleClick}>
+      <i
+        className="fa-solid fa-magnifying-glass"
+        style={{ color: '#ffffff' }}
+      ></i>
+    </button>
+  )
+}
+
+export const Navigation = ({
+  user,
+  category, //
+  // useQuery,
+  query,
+  // productsPagi,
+  setProductsPagi,
+  setSearchParams,
+}) => {
+  const [keyword, setKeyword] = useState('')
+
+  // useEffect(() => {
+  //   productServices
+  //     .getList({
+  //       limit: itemsPerPage,
+  //       categoryId: category._id,
+  //       page: currentPage,
+  //     })
+  //     .then((res) => {
+  //       setProductsPagi(res.data)
+  //     })
+  // }, [searchParams, category])
+
   return (
     <div className="navigation__container productCatalog">
       <nav className="navigation">
@@ -42,11 +103,19 @@ export const Navigation = ({ category }) => {
               Tiếng Việt
               <i className="fa-solid fa-chevron-down fa-lg"></i>
             </div>
-            <div className="navigation__header__button">Đăng Ký</div>
-            <div className="divider"></div>
-            <div className="navigation__header__button">
-              <Link to="/login">Đăng Nhập</Link>
-            </div>
+            {!!user ? (
+              <div className="navigation__header__button">{user.email}</div>
+            ) : (
+              <>
+                <div className="navigation__header__button">
+                  <Link to="/register">Đăng Ký</Link>
+                </div>
+                <div className="divider"></div>
+                <div className="navigation__header__button">
+                  <Link to="/login">Đăng Nhập</Link>
+                </div>
+              </>
+            )}
           </div>
         </div>
         <div className="navigation__body">
@@ -56,33 +125,28 @@ export const Navigation = ({ category }) => {
             </Link>
           </div>
           <div className="navigation__body__searchSection">
-            <form method="POST" action="/search">
-              <div className="navigation__body__searchSection__searchbox">
-                <input
-                  type="search"
-                  placeholder="Đăng ký và nhận voucher lên đến 70k!"
-                ></input>
-                <div className="divider productCatalog"></div>
-                <div className="categoryOption">
-                  <div>Trong {category.title}</div>
-                  <i className="fa-solid fa-chevron-down fa-xs"></i>
-                  <div className="options">
-                    {/* <div className="optionfake"></div> */}
-                    <div className="option">
-                      Trong {category.title}
-                      <i className="fa-solid fa-check fa-sm"></i>
-                    </div>
-                    <div className="option">Trong Shopee</div>
+            <div className="navigation__body__searchSection__searchbox">
+              <SearchField keyword={keyword} setKeyword={setKeyword} />
+              <div className="divider productCatalog"></div>
+              <div className="categoryOption">
+                <div>Trong {category.title}</div>
+                <i className="fa-solid fa-chevron-down fa-xs"></i>
+                <div className="options">
+                  {/* <div className="optionfake"></div> */}
+                  <div className="option">
+                    Trong {category.title}
+                    <i className="fa-solid fa-check fa-sm"></i>
                   </div>
+                  <div className="option">Trong Shopee</div>
                 </div>
-                <button>
-                  <i
-                    className="fa-solid fa-magnifying-glass"
-                    style={{ color: '#ffffff' }}
-                  ></i>
-                </button>
               </div>
-            </form>
+              <SearchButton
+                setSearchParams={setSearchParams}
+                query={query}
+                keyword={keyword}
+                // setProductsPagi={setProductsPagi}
+              />
+            </div>
             <div className="navigation__body__searchSection__recommendation">
               <a href="#">Đồ Dùng Học Tập</a>
               <a href="#">Dép</a>
@@ -104,15 +168,13 @@ export const Navigation = ({ category }) => {
                 style={{ color: '#ffffff' }}
               ></i>
             </Link>
-            {/* <a href="/cart">
-              <i className="fa-solid fa-cart-shopping fa-2xl"></i>
-            </a> */}
-          </div>
-          <div className="navigation__body__cart__info">
-            <div className="navigation__body__cart__info__empty">
-              <img src={cart_empty_url}></img>
-              <div className="navigation__body__cart__info__empty__caption">
-                Chưa Có Sản Phẩm
+
+            <div className="navigation__body__cart__info">
+              <div className="navigation__body__cart__info__empty">
+                <img src={cart_empty_url}></img>
+                <div className="navigation__body__cart__info__empty__caption">
+                  Chưa Có Sản Phẩm
+                </div>
               </div>
             </div>
           </div>

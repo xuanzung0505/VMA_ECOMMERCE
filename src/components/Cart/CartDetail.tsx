@@ -500,7 +500,7 @@ const CartDetail = () => {
   const { cart, groupedCartItems, cartSelected } = useGlobalContext()
   const [allState, setAllState] = useState(false)
 
-  console.log('cart detail rerender')
+  // console.log('cart detail rerender')
   // console.log(groupedCartItems)
 
   //   console.log('iterate through this object:')
