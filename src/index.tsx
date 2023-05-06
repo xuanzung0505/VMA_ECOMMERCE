@@ -23,8 +23,11 @@ import { useCookies } from 'react-cookie'
 // import { isExpired } from 'react-jwt'
 import { userServices } from './services/userServices'
 import jwt from 'jsonwebtoken'
+import { ProductDetailPage, productLoader } from './routes/ProductDetailPage'
+import { cartItemServices } from './services/cartItemServices'
 
 const { cartItems } = require('./components/Cart/cart.js')
+const MAX_CART_SIZE = 10
 
 const initialState = {
   //user
@@ -64,6 +67,11 @@ const router = createBrowserRouter([
     element: <ProductByCategoryPage />,
     loader: categoryLoader,
   },
+  {
+    path: '/product/:productId',
+    element: <ProductDetailPage />,
+    loader: productLoader,
+  },
 ])
 
 const CommonContextProvider = ({ children }) => {
@@ -89,7 +97,6 @@ const CommonContextProvider = ({ children }) => {
             const user = res.data
             delete user.password
             setUser(user)
-            // console.log(state.user)
           })
         }
       })
@@ -138,9 +145,17 @@ const CommonContextProvider = ({ children }) => {
 
   const fetchCart = async () => {
     //fetch here
-
-    //then dispatch
-    dispatch({ type: 'LOAD_CART', payload: cartItems })
+    if (!!state.user) {
+      cartItemServices
+        .getList({ userId: state.user._id, limit: MAX_CART_SIZE })
+        .then((res) => {
+          //then dispatch
+          dispatch({ type: 'LOAD_CART', payload: res.data.docs })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
     // dispatch({ type: 'LOAD_CARTSELECTED' })
   }
 
@@ -159,6 +174,10 @@ const CommonContextProvider = ({ children }) => {
     )
     fetchCart()
   }, [])
+
+  useEffect(() => {
+    fetchCart()
+  }, [state.user])
 
   useEffect(() => {
     getTotal()

@@ -18,11 +18,12 @@ async function categoryLoader({ params }) {
   let category = {}
   await categoryServices.getById(params.categoryId).then((res) => {
     category = res.data
+    console.log(category)
     return category
   })
   // console.log('done await')
 
-  return { category }
+  return category
 }
 
 const ProductByCategoryPage = () => {
@@ -30,7 +31,7 @@ const ProductByCategoryPage = () => {
 
   const [productsPagi, setProductsPagi] = useState([])
   //
-  const { category }: any = useLoaderData()
+  const category: any = useLoaderData()
   const [categoryList, setCategoryList] = useState([])
   //
   // const [productsPagi, setProductsPagi] = useState([])

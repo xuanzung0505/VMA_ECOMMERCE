@@ -1,13 +1,12 @@
 const cartItems = [
     {
-        id: 'cartItemId1',
+        _id: 'cartItemId1',
         varianceId: 'varianceId',
         variance: {
-            id: 'varianceId',
-            title: 'product 1',
+            _id: 'varianceId',
             attribute: [
-                { "Màu sắc": "XÁM" },
-                { "Kích cỡ": "L" }
+                { "title": "Màu sắc", "value": "XÁM" },
+                { "title": "Kích cỡ", "value": "L" }
             ],
             unitPrice: 169000,
             quantity: 170,
@@ -53,17 +52,16 @@ const cartItems = [
             },
         },
         quantity: 2,
-        cartId: 'cartId'
     },
+
     {
-        id: 'cartItemId2',
-        varianceId: 'varianceId',
+        _id: 'cartItemId2',
+        varianceId: 'varianceId2',
         variance: {
-            id: 'varianceId',
-            title: 'product 1',
+            _id: 'varianceId2',
             attribute: [
-                { "Màu sắc": "XÁM" },
-                { "Kích cỡ": "L" }
+                { "title": "Màu sắc", "value": "XÁM" },
+                { "title": "Kích cỡ", "value": "L" }
             ],
             unitPrice: 169000,
             quantity: 170,
@@ -109,16 +107,16 @@ const cartItems = [
             },
         },
         quantity: 2,
-        cartId: 'cartId'
-    }, {
-        id: 'cartItemId3',
-        varianceId: 'varianceId',
+    },
+
+    {
+        _id: 'cartItemId3',
+        varianceId: 'varianceId3',
         variance: {
-            id: 'varianceId',
-            title: 'product 1',
+            _id: 'varianceId',
             attribute: [
-                { "Màu sắc": "XÁM" },
-                { "Kích cỡ": "L" }
+                { "title": "Màu sắc", "value": "XÁM" },
+                { "title": "Kích cỡ", "value": "L" }
             ],
             unitPrice: 169000,
             quantity: 170,
@@ -164,8 +162,7 @@ const cartItems = [
             },
         },
         quantity: 2,
-        cartId: 'cartId'
-    }
+    },
 ]
 
 export { cartItems }

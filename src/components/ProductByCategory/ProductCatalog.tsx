@@ -24,6 +24,7 @@ const RangeBox = ({
     //then set
     query.set('minPrice', minPrice)
     query.set('maxPrice', maxPrice)
+    query.set('page', 1)
     setSearchParams(query)
   }
 
@@ -350,7 +351,7 @@ const ProductCatalog = ({
               {productsPagi.docs?.length > 0 ? (
                 productsPagi.docs?.map((item: any) => {
                   return (
-                    <Link to="#">
+                    <Link to={`/product/${item._id}`}>
                       <div className="item">
                         <div
                           className="logo"
@@ -386,6 +387,7 @@ const ProductCatalog = ({
                         </div>
                         {/* <div className="location">{item.vendor.location}</div> */}
                         <div className="location">Hà Nội</div>
+                        {/* <div className="location">{}</div> */}
                       </div>
                     </Link>
                   )

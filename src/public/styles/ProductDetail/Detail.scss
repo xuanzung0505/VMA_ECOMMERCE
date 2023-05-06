@@ -1,0 +1,277 @@
+@import '../mixins';
+@import '../variables';
+
+.productDetail__container {
+  @include containerMixin();
+  // background-image: $gradient-color2;
+  z-index: 0;
+
+  & > .productDetail {
+    @include containerChildMixin();
+    // row-gap: 100px;
+
+    & > .cate_dir {
+      @include navigationTextStyle();
+      display: flex;
+      column-gap: 10px;
+
+      align-items: center;
+
+      font-size: 1.1 * $fontSize;
+      // background-color: white;
+      padding: 10px 0px;
+    }
+
+    & > .detail {
+      display: flex;
+      background-color: white;
+      padding: 20px 0px;
+
+      & > .preview {
+        flex: 2 1 42%;
+
+        & > .main {
+          background-size: contain;
+          height: 400px;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+      }
+
+      & > .info {
+        flex: 3 1 58%;
+        display: flex;
+        flex-direction: column;
+        padding-right: 40px;
+        row-gap: 15px;
+        & > .title {
+          & > .love {
+            display: inline-flex;
+            padding: 2px 3px;
+            color: white;
+            border-radius: $radius;
+            background-color: $main-color4;
+          }
+          & > .caption {
+            display: inline-flex;
+            font-size: 1.4 * $fontSize;
+            margin-left: 5px;
+          }
+        }
+
+        & > .row {
+          // margin-top: 10px;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+
+          & > .left {
+            display: flex;
+            column-gap: 20px;
+
+            & > .divider {
+              height: $dividerHeight;
+              background-color: $transparent-color2;
+            }
+
+            & > .ratings {
+              display: flex;
+              align-items: center;
+              column-gap: 5px;
+              & > .caption {
+                font-size: 1.3 * $fontSize;
+                color: $main-color4;
+              }
+            }
+
+            & > .totalRatings {
+              display: flex;
+              align-items: center;
+              column-gap: 5px;
+
+              & > .caption {
+                font-size: 1.3 * $fontSize;
+                // color: $main-color4;
+              }
+
+              & > .unit {
+                font-size: 1.2 * $fontSize;
+                color: $transparent-color7;
+              }
+            }
+
+            & > .sold {
+              display: flex;
+              align-items: center;
+              column-gap: 5px;
+
+              & > .caption {
+                font-size: 1.3 * $fontSize;
+                // color: $main-color4;
+              }
+
+              & > .unit {
+                font-size: 1.2 * $fontSize;
+                color: $transparent-color7;
+              }
+            }
+          }
+
+          & > .right {
+            & > .report {
+              font-size: 1.2 * $fontSize;
+              color: $transparent-color3;
+            }
+          }
+        }
+
+        & > .priceTag {
+          background-color: $transparent-color5;
+          padding: 20px 20px;
+          & > .price {
+            font-size: 2.3 * $fontSize;
+            color: $main-color4;
+          }
+        }
+
+        & > .attributes {
+          display: flex;
+          flex-direction: column;
+          row-gap: 25px;
+
+          & > .deal,
+          & > .baohiem,
+          & > .vanchuyen,
+          & > .attribute,
+          & > .quantity {
+            display: inline-flex;
+            align-items: flex-start;
+
+            & > .title {
+              // flex: 1 0 15%;
+              width: 120px;
+              font-size: 1.1 * $fontSize;
+              color: $transparent-color3;
+            }
+
+            & > .options {
+              // flex: 1 0 85%;
+              font-size: 1.1 * $fontSize;
+
+              &.deal {
+                & > .caption {
+                  display: inline-flex;
+                  padding: 2px 5px;
+                  color: $main-color4;
+                  background-color: $transparent-color10;
+                }
+              }
+
+              &.vanchuyen {
+                & > .type {
+                  display: flex;
+                  align-items: center;
+                }
+
+                & > .destAndFee {
+                  display: flex;
+                  align-items: center;
+                }
+              }
+
+              &.attribute {
+                display: flex;
+                column-gap: 10px;
+                & > .option {
+                  background-color: white;
+                  border: 1px solid $transparent-color6;
+                  padding: 6px 14px;
+
+                  &:hover {
+                    color: $main-color4;
+                    border: 1px solid $main-color4;
+                  }
+
+                  &.active {
+                    border: 1px solid $main-color4;
+                    color: $main-color4;
+                  }
+                }
+              }
+            }
+            & > .quantityColumn {
+              // flex: 1 0 50%;
+              height: 30px;
+              display: inline-flex;
+              align-items: center;
+              color: $transparent-color7;
+
+              button {
+                width: 35px;
+                height: 30px;
+                background-color: white;
+                // color: $transparent-color6;
+                border: 1px solid $transparent-color6;
+                font-size: 2 * $fontSize;
+                color: $transparent-color7;
+              }
+
+              input {
+                width: 50px;
+                height: 26px;
+                text-align: center;
+                border: 1px solid $transparent-color6;
+                font-size: 1.5 * $fontSize;
+                color: $transparent-color7;
+
+                @include NumberInputWithoutScrollerMixin();
+              }
+            }
+            & > .available {
+              margin-left: 10px;
+              font-size: 1.1 * $fontSize2;
+              color: $transparent-color3;
+            }
+          }
+
+          & > .quantity {
+            align-items: center;
+          }
+          & > .buttons {
+            display: flex;
+            align-items: flex-start;
+            column-gap: 15px;
+
+            & > .addToCart {
+              padding: 15px 20px;
+              font-size: 1.3 * $fontSize;
+              background-color: $transparent-color10;
+              color: $main-color4;
+              border: 1px solid $main-color4;
+              border-radius: $radius;
+
+              &:hover {
+                background-color: $transparent-color11;
+              }
+            }
+            & > .buy {
+              padding: 15px 20px;
+              font-size: 1.3 * $fontSize;
+              background-color: $main-color4;
+              color: white;
+              border: 1px solid $main-color4;
+              border-radius: $radius;
+
+              &:hover {
+                opacity: 0.8;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    & > .shopDetail {
+    }
+  }
+}

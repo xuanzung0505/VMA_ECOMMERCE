@@ -43,8 +43,6 @@
 }
 
 @mixin navigationTextStyle {
-  // color: white;
-  // font-size: 12px;
   font-size: $fontSize;
   font-family: 'Noto Sans';
   font-weight: 400;
@@ -144,4 +142,17 @@
   // max-width: 1400px;
   // padding: 10px 10px;
   row-gap: $navigationRowGap;
+}
+
+@mixin NumberInputWithoutScrollerMixin {
+  /* Remove Arrows/Spinners */
+  /* Chrome, Safari, Edge, Opera */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  -moz-appearance: textfield;
 }

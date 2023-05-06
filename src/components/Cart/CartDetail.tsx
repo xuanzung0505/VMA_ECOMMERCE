@@ -17,7 +17,7 @@ const CartHeader = ({
   //
   cartSelectedLength,
 }) => {
-  console.log('cart header re-render')
+  // console.log('cart header re-render')
 
   const HeaderCheckbox = ({ allState, setAllState }) => {
     // const [state, setState] = useState(allState)
@@ -88,8 +88,6 @@ const CartItemGroupCheckbox = ({
       setGlobalState(newState)
   }
 
-  console.log(`selectedSize:${selectedSize},groupSize:${groupSize}`)
-
   useEffect(() => {
     if (selectedSize === groupSize) {
       setGlobalState(true)
@@ -120,7 +118,9 @@ const CartItemGroup = ({
   let currentSelected = 0
 
   vendorItems.forEach((item) => {
-    if (cartSelected.includes(item)) currentSelected++
+    if (cartSelected.includes(item)) {
+      currentSelected++
+    }
   })
 
   // console.log('vendorItemsLength' + vendorItems.length)
@@ -150,7 +150,6 @@ const CartItemGroup = ({
     allState,
     // selectedSize
   ])
-
   return (
     <div className="cart__section">
       <div className="cart__item">
@@ -182,7 +181,7 @@ const CartItemGroup = ({
       {vendorItems.map((item: any, index: number) => {
         return (
           <CartItem
-            key={item.id}
+            key={item._id}
             item={item}
             //
             globalState={globalState}
@@ -260,7 +259,7 @@ const CartItemCheckbox = ({
     else newState = !state
 
     setState(() => {
-      toggleSelect(item.id, newState)
+      toggleSelect(item._id, newState)
       if (newState === true)
         setSelectedSize((size: any) => {
           let newSize = currentSelected + 1
@@ -308,7 +307,7 @@ const CartItem = ({
 
   const handleClick = () => {
     // console.log(item.id)
-    deleteCartItem(item.id)
+    deleteCartItem(item._id)
   }
 
   const DeleteButton = () => {
@@ -333,7 +332,7 @@ const CartItem = ({
           />
         </div>
         <div className="detailColumn">
-          <Link to="#">
+          <Link to={`/product/${item.variance.product._id}`}>
             <div
               className="item__logo"
               style={{
@@ -342,7 +341,7 @@ const CartItem = ({
             ></div>
           </Link>
           <div className="item__detail">
-            <Link to="#" className="title">
+            <Link to={`/product/${item.variance.product._id}`}>
               {item.variance.product.title}
             </Link>
             <div
@@ -371,9 +370,9 @@ const CartItem = ({
         </div>
         <div className="unitPriceColumn row">₫{item.variance.unitPrice}</div>
         <div className="quantityColumn">
-          <button onClick={() => toggleQuantity(item.id, 'dec')}>-</button>
+          <button onClick={() => toggleQuantity(item._id, 'dec')}>-</button>
           <input type="text" value={item.quantity}></input>
-          <button onClick={() => toggleQuantity(item.id, 'inc')}>+</button>
+          <button onClick={() => toggleQuantity(item._id, 'inc')}>+</button>
         </div>
         <div className="itemTotalPriceColumn row">
           ₫{item.variance.unitPrice * item.quantity}
@@ -512,7 +511,8 @@ const CartDetail = () => {
   // const setAllStateMemo = useMemo(() => setAllState, [])
   // const cartSelectedMemo = useMemo(() => cartSelected, [])
   // const cartMemo = useMemo(() => cart, [])
-
+  // console.log('cart selected:')
+  // console.log(cartSelected)
   return (
     <div className="cart__container">
       <div className="cart">

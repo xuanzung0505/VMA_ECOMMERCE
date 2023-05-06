@@ -1,6 +1,6 @@
 const groupByVendorName = (cartItems: any[]) => {
   let reduced = cartItems.reduce((result: any, item: any) => {
-    let vendorId = item.variance.product.vendor.id
+    let vendorId = item.variance.product.vendor._id
     let vendorName = item.variance.product.vendor.name
 
     //neu result[vendorId] undefine thi khoi tao
@@ -31,13 +31,14 @@ function reducer(state: any, action: any) {
   //user
   if (action.type === 'SET_USER') {
     state.user = action.payload.user
+    // console.log(state.user)
     return { ...state }
   }
 
   //cart
   if (action.type === 'TOGGLE_QUANTITY') {
     let tempCart = state.cart.map((cartItem: any, index: number) => {
-      if (cartItem.id === action.payload.id) {
+      if (cartItem._id === action.payload.id) {
         let quantity
         if (action.payload.type === 'inc') quantity = cartItem.quantity + 1
         if (action.payload.type === 'dec')
@@ -51,7 +52,7 @@ function reducer(state: any, action: any) {
 
     //if item is selected
     let tempCartSelected = state.cartSelected.map((cartItem: any) => {
-      if (cartItem.id === action.payload.id) {
+      if (cartItem._id === action.payload.id) {
         let quantity
         if (action.payload.type === 'inc') quantity = cartItem.quantity + 1
         if (action.payload.type === 'dec')
@@ -73,15 +74,15 @@ function reducer(state: any, action: any) {
     let temp = state.cartSelected
     if (newCheck) {
       const selectedItem = state.cart.find(
-        (item: any) => item.id === action.payload.id
+        (item: any) => item._id === action.payload.id
       )
       temp.push(selectedItem)
     } else {
       temp = state.cartSelected.filter(
-        (item: any) => item.id != action.payload.id
+        (item: any) => item._id != action.payload.id
       )
     }
-    console.log('state.cartSelected:' + state.cartSelected)
+    // console.log('state.cartSelected:' + state.cartSelected)
     return { ...state, cartSelected: temp }
   }
 
@@ -99,6 +100,7 @@ function reducer(state: any, action: any) {
 
   if (action.type === 'LOAD_CART') {
     state.cart = action.payload
+    console.log(state.cart)
     state.groupedCartItems = groupByVendorName(state.cart)
 
     return { ...state, loading: false }
@@ -112,11 +114,11 @@ function reducer(state: any, action: any) {
 
   if (action.type === 'DELETE_CARTITEM') {
     const newCart = state.cart.filter((item: any) => {
-      return item.id !== action.payload.id
+      return item._id !== action.payload.id
     })
 
     const newSelectedCart = state.cartSelected.filter((item: any) => {
-      return item.id !== action.payload.id
+      return item._id !== action.payload.id
     })
 
     state.cart = newCart

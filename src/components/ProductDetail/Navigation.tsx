@@ -1,74 +1,12 @@
-import '../../public/styles/ProductByCategory/Navigation.scss'
+import '../../public/styles/ProductDetail/Navigation.scss'
 import shopee_url from '../../public/assets/Shopee-Logo-inverted.png'
 import cart_empty_url from '../../public/assets/Cart-Empty.png'
 
-import { Link, useSearchParams } from 'react-router-dom'
-import { useState } from 'react'
-import { productServices } from '../../services/productServices'
+import { Link } from 'react-router-dom'
 
-const SearchField = ({ keyword, setKeyword }) => {
-  const handleChange = (e: any) => {
-    // console.log(e)
-    setKeyword(e.target.value)
-  }
-
+export const Navigation = ({ user }) => {
   return (
-    <input
-      type="search"
-      placeholder="Đăng ký và nhận voucher lên đến 70k!"
-      onChange={handleChange}
-      value={keyword}
-    ></input>
-  )
-}
-
-const SearchButton = ({
-  query, //
-  setSearchParams,
-  keyword,
-  // setProductsPagi,
-}) => {
-  const handleClick = () => {
-    query.set('keyword', keyword)
-    query.set('page', 1)
-    setSearchParams(query)
-  }
-
-  return (
-    <button onClick={handleClick}>
-      <i
-        className="fa-solid fa-magnifying-glass"
-        style={{ color: '#ffffff' }}
-      ></i>
-    </button>
-  )
-}
-
-export const Navigation = ({
-  user,
-  category, //
-  // useQuery,
-  query,
-  // productsPagi,
-  setProductsPagi,
-  setSearchParams,
-}) => {
-  const [keyword, setKeyword] = useState('')
-
-  // useEffect(() => {
-  //   productServices
-  //     .getList({
-  //       limit: itemsPerPage,
-  //       categoryId: category._id,
-  //       page: currentPage,
-  //     })
-  //     .then((res) => {
-  //       setProductsPagi(res.data)
-  //     })
-  // }, [searchParams, category])
-
-  return (
-    <div className="navigation__container productCatalog">
+    <div className="navigation__container productDetail">
       <nav className="navigation">
         <div className="navigation__header">
           <div className="navigation__header__left">
@@ -126,28 +64,20 @@ export const Navigation = ({
             </Link>
           </div>
           <div className="navigation__body__searchSection">
-            <div className="navigation__body__searchSection__searchbox">
-              <SearchField keyword={keyword} setKeyword={setKeyword} />
-              <div className="divider productCatalog"></div>
-              <div className="categoryOption">
-                <div>Trong {category.title}</div>
-                <i className="fa-solid fa-chevron-down fa-xs"></i>
-                <div className="options">
-                  {/* <div className="optionfake"></div> */}
-                  <div className="option">
-                    Trong {category.title}
-                    <i className="fa-solid fa-check fa-sm"></i>
-                  </div>
-                  <div className="option">Trong Shopee</div>
-                </div>
+            <form method="POST" action="/search">
+              <div className="navigation__body__searchSection__searchbox">
+                <input
+                  type="search"
+                  placeholder="Đăng ký và nhận voucher lên đến 70k!"
+                ></input>
+                <button>
+                  <i
+                    className="fa-solid fa-magnifying-glass"
+                    style={{ color: '#ffffff' }}
+                  ></i>
+                </button>
               </div>
-              <SearchButton
-                setSearchParams={setSearchParams}
-                query={query}
-                keyword={keyword}
-                // setProductsPagi={setProductsPagi}
-              />
-            </div>
+            </form>
             <div className="navigation__body__searchSection__recommendation">
               <a href="#">Đồ Dùng Học Tập</a>
               <a href="#">Dép</a>
