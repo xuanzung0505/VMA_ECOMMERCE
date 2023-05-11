@@ -1,9 +1,7 @@
 import ReactDOM from 'react-dom'
 import React, { useContext, useEffect, useReducer } from 'react'
-
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import ErrorPage from './routes/error-page'
-
 import { App } from './routes/App'
 import { LoginPage } from './routes/LoginPage'
 import { CartPage } from './routes/CartPage'
@@ -12,21 +10,19 @@ import {
   ProductByCategoryPage,
   categoryLoader,
 } from './routes/ProductByCategoryPage'
-
 import './public/styles/index.scss'
-import { NotiContainer } from './utils/notification'
-
+import { NotiContainer, NotiManager } from './utils/notification'
 import { useCookies } from 'react-cookie'
-
-// import { useJwt } from 'react-jwt'
-// import { decodeToken } from 'react-jwt'
-// import { isExpired } from 'react-jwt'
 import { userServices } from './services/userServices'
 import jwt from 'jsonwebtoken'
 import { ProductDetailPage, productLoader } from './routes/ProductDetailPage'
 import { cartItemServices } from './services/cartItemServices'
+import { errorResponse } from './utils/errorResponse'
+import { LogoutPage } from './routes/LogoutPage'
 
-const { cartItems } = require('./components/Cart/cart.js')
+// const { cartItems } = require('./components/Cart/cart.js')
+// const { cartItem } = require('./components/Cart/cartItem.js')
+
 const MAX_CART_SIZE = 10
 
 const initialState = {
@@ -42,6 +38,10 @@ const initialState = {
 }
 
 const CommonContext = React.createContext()
+
+const useGlobalContext = () => {
+  return useContext(CommonContext)
+}
 
 const router = createBrowserRouter([
   {
@@ -72,6 +72,10 @@ const router = createBrowserRouter([
     element: <ProductDetailPage />,
     loader: productLoader,
   },
+  {
+    path: '/logout',
+    element: <LogoutPage />,
+  },
 ])
 
 const CommonContextProvider = ({ children }) => {
@@ -101,38 +105,31 @@ const CommonContextProvider = ({ children }) => {
         }
       })
     }
-    // if (!!decodedToken) {
-    //   console.log(decodedToken)
-    //   console.log(new Date(decodedToken.payload.exp))
-
-    //   const tokenExpired = decodedToken.payload.exp < new Date().getTime()
-
-    //   console.log('token is expired:' + tokenExpired)
-
-    //   if (tokenExpired) removeCookie('token')
-
-    //   if (tokenExpired === false) {
-    //     userServices.getById(decodedToken.userId).then((res) => {
-    //       // console.log(res.data)
-    //       const user = res.data
-    //       delete user.password
-    //       setUser(user)
-    //       // console.log(state.user)
-    //     })
-    //   }
-    // }
-
-    //other datas
   }
 
   //user
-  const setUser = (user: any) => {
+  const setUser = async (user: any) => {
     dispatch({ type: 'SET_USER', payload: { user } })
   }
 
   //cart
   const toggleQuantity = (id: any, type: any) => {
-    dispatch({ type: 'TOGGLE_QUANTITY', payload: { id, type } })
+    let cartItem = state.cart.find((item: any) => {
+      return item._id === id
+    })
+    let quantity = cartItem.quantity
+
+    if (type === 'inc') quantity = quantity + 1
+    if (type === 'dec') quantity = quantity - 1 <= 0 ? 1 : quantity - 1
+    cartItemServices
+      .updateById(id, { quantity })
+      .then((res) => {
+        dispatch({ type: 'TOGGLE_QUANTITY', payload: { id, type } })
+        NotiManager.success('Sửa thông tin giỏ thành công')
+      })
+      .catch((err) => {
+        errorResponse.cart.toggleQuantity(err)
+      })
   }
 
   const toggleSelect = (id: any, initialCheck: any) => {
@@ -145,26 +142,111 @@ const CommonContextProvider = ({ children }) => {
 
   const fetchCart = async () => {
     //fetch here
+
+    // if (!!state.user) {
+    // console.log('got user!')
+    // console.log(state.user)
+    // console.log('cookie')
+    // console.log(cookies)
+
+    // console.log(new Cookies().get('token'))
     if (!!state.user) {
       cartItemServices
-        .getList({ userId: state.user._id, limit: MAX_CART_SIZE })
+        .getList({
+          userId: state.user._id,
+          limit: MAX_CART_SIZE,
+        })
         .then((res) => {
           //then dispatch
+          console.log(res.data)
           dispatch({ type: 'LOAD_CART', payload: res.data.docs })
         })
         .catch((err) => {
           console.log(err)
         })
+    } else {
+      dispatch({ type: 'LOAD_CART', payload: [] })
     }
+    // }
     // dispatch({ type: 'LOAD_CARTSELECTED' })
   }
 
+  const addToCart = async (varianceId: any, userId: any, quantity: number) => {
+    //check if exists
+    const find = state.cart.find((item: any) => item.varianceId === varianceId)
+    if (!!find) {
+      console.log('find')
+      console.log(find._id)
+
+      cartItemServices
+        .updateById(find._id, {
+          quantity: find.quantity + quantity,
+        })
+        .then((res) => {
+          dispatch({
+            type: 'ADD_TO_CART',
+            payload: {
+              varianceId,
+              quantity,
+              type: 'ADD_EXIST',
+              // cartItem,
+            },
+          })
+          NotiManager.success('Thêm vào giỏ hàng thành công')
+        })
+        .catch((err) => {
+          errorResponse.cart.addToCart(err)
+        })
+    }
+    //add on DB first
+    else
+      cartItemServices
+        .create({
+          varianceId,
+          userId,
+          quantity,
+        })
+        .then((res) => {
+          dispatch({
+            type: 'ADD_TO_CART',
+            payload: {
+              cartItem: res.data,
+              type: 'ADD_NEW',
+              // cartItem,
+            },
+          })
+          NotiManager.success('Thêm vào giỏ hàng thành công')
+        })
+        .catch((err) => {
+          errorResponse.cart.addToCart(err)
+        })
+  }
+
   const deleteCartItem = (id: any) => {
-    dispatch({ type: 'DELETE_CARTITEM', payload: { id } })
+    cartItemServices
+      .deleteById(id)
+      .then((res) => {
+        NotiManager.success('Xóa khỏi giỏ hàng thành công')
+        dispatch({ type: 'DELETE_CARTITEM', payload: { id } })
+      })
+      .catch((err) => {
+        errorResponse.cart.deleteCartItem(err)
+      })
   }
 
   const deleteAllCart = () => {
-    dispatch({ type: 'DELETE_ALLCART' })
+    state.cart.map((item: any) => {
+      cartItemServices
+        .deleteById(item._id)
+        .then((res) => {
+          NotiManager.success('Xóa khỏi giỏ hàng thành công')
+          dispatch({ type: 'DELETE_CARTITEM', payload: { id: item._id } })
+        })
+        .catch((err) => {
+          errorResponse.cart.deleteCartItem(err)
+        })
+    })
+    // dispatch({ type: 'DELETE_ALLCART' })
   }
 
   useEffect(() => {
@@ -172,13 +254,15 @@ const CommonContextProvider = ({ children }) => {
       cookies
       //  ,decodedToken, isExpired, reEvaluateToken
     )
-    fetchCart()
+    // fetchCart(cookies)
   }, [])
 
+  //fetch cart from a user
   useEffect(() => {
     fetchCart()
-  }, [state.user])
+  }, [state.user, cookies])
 
+  //change cart total
   useEffect(() => {
     getTotal()
   }, [state.cartSelected, state.cartSelected.length])
@@ -196,6 +280,7 @@ const CommonContextProvider = ({ children }) => {
         //cart
         toggleQuantity,
         fetchCart,
+        addToCart,
         toggleSelect,
         getTotal,
         deleteCartItem,
@@ -205,10 +290,6 @@ const CommonContextProvider = ({ children }) => {
       {children}
     </CommonContext.Provider>
   )
-}
-
-const useGlobalContext = () => {
-  return useContext(CommonContext)
 }
 
 ReactDOM.render(

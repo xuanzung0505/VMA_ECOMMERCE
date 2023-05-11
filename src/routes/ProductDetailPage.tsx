@@ -1,4 +1,9 @@
-import { useLoaderData, useLocation, useSearchParams } from 'react-router-dom'
+import {
+  useLoaderData,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom'
 import { productServices } from '../services/productServices'
 import { Navigation } from '../components/ProductDetail/Navigation'
 import { useGlobalContext } from '..'
@@ -24,15 +29,18 @@ async function productLoader({ params }) {
 }
 
 const ProductDetailPage = () => {
-  const { user } = useGlobalContext()
+  const { user, cart } = useGlobalContext()
+
+  //redirect hook
+  const navigate = useNavigate()
 
   const product: any = useLoaderData()
   // console.log('product:' + product)
 
   return (
     <div className="container">
-      <Navigation user={user} />
-      <Detail user={user} product={product} />
+      <Navigation user={user} cart={cart} navigate={navigate} />
+      <Detail user={user} product={product} navigate={navigate} />
     </div>
   )
 }

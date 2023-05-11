@@ -6,6 +6,8 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { useState } from 'react'
 import { productServices } from '../../services/productServices'
 
+const { defaultAvatar } = require('../Global/avatar')
+
 const SearchField = ({ keyword, setKeyword }) => {
   const handleChange = (e: any) => {
     // console.log(e)
@@ -52,6 +54,8 @@ export const Navigation = ({
   // productsPagi,
   setProductsPagi,
   setSearchParams,
+  cart,
+  navigate,
 }) => {
   const [keyword, setKeyword] = useState('')
 
@@ -105,7 +109,28 @@ export const Navigation = ({
               <i className="fa-solid fa-chevron-down fa-lg"></i>
             </div>
             {!!user ? (
-              <div className="navigation__header__button">{user.email}</div>
+              <>
+                <div className="navigation__header__button user">
+                  <div
+                    className="avatar"
+                    style={{
+                      backgroundImage: !!user.avatar
+                        ? `url(${user.avatar})`
+                        : `url(${defaultAvatar})`,
+                    }}
+                  ></div>
+                  {user.email}
+
+                  <div className="dropDown">
+                    <div className="option">
+                      <Link to={'#'}>Tài khoản của tôi</Link>
+                    </div>
+                    <div className="option">
+                      <Link to={'/logout'}>Đăng xuất</Link>
+                    </div>
+                  </div>
+                </div>
+              </>
             ) : (
               <>
                 <div className="navigation__header__button">
@@ -171,12 +196,49 @@ export const Navigation = ({
             </Link>
 
             <div className="navigation__body__cart__info">
-              <div className="navigation__body__cart__info__empty">
-                <img src={cart_empty_url}></img>
-                <div className="navigation__body__cart__info__empty__caption">
-                  Chưa Có Sản Phẩm
+              {cart.length == 0 ? (
+                <div className="navigation__body__cart__info__empty">
+                  <img src={cart_empty_url}></img>
+                  <div className="navigation__body__cart__info__empty__caption">
+                    Chưa Có Sản Phẩm
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="cart__info">
+                  <div className="caption">Sản phẩm mới thêm</div>
+                  {cart.map((item: any) => {
+                    return (
+                      <div className="row">
+                        {/* <div
+                          className="logo"
+                          style={{
+                            backgroundImage: `url(${item.variance.product.logo})`,
+                          }}
+                        ></div> */}
+                        <img
+                          className="logo"
+                          src={item.variance.product.logo}
+                        ></img>
+                        <div className="title">
+                          {item.variance.product.title}
+                        </div>
+                        <div className="unitPrice">
+                          ₫{item.variance.unitPrice}
+                        </div>
+                      </div>
+                    )
+                  })}
+                  <div className="goToCart">
+                    <button
+                      onClick={() => {
+                        navigate('/cart')
+                      }}
+                    >
+                      Xem Giỏ Hàng
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

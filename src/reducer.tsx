@@ -87,7 +87,7 @@ function reducer(state: any, action: any) {
   }
 
   if (action.type === 'GET_TOTAL') {
-    console.log('cartSelected updated!')
+    // console.log('cartSelected updated!')
     const cartSelectedTotal = state.cartSelected.reduce(
       (result: any, item: any) => {
         return result + item.quantity * item.variance.unitPrice
@@ -100,7 +100,7 @@ function reducer(state: any, action: any) {
 
   if (action.type === 'LOAD_CART') {
     state.cart = action.payload
-    console.log(state.cart)
+    // console.log(state.cart)
     state.groupedCartItems = groupByVendorName(state.cart)
 
     return { ...state, loading: false }
@@ -108,6 +108,25 @@ function reducer(state: any, action: any) {
 
   if (action.type === 'LOAD_CARTSELECTED') {
     state.cartSelected = []
+
+    return { ...state }
+  }
+
+  if (action.type === 'ADD_TO_CART') {
+    const { cartItem } = action.payload
+    // console.log(cartItem)
+
+    if (action.payload.type === 'ADD_EXIST') {
+      const find = state.cart.find(
+        (item: any) => item.varianceId === action.payload.varianceId
+      )
+      find.quantity += action.payload.quantity
+      state.groupedCartItems = groupByVendorName(state.cart)
+    }
+    if (action.payload.type === 'ADD_NEW') {
+      state.cart = [...state.cart, cartItem]
+      state.groupedCartItems = groupByVendorName(state.cart)
+    }
 
     return { ...state }
   }

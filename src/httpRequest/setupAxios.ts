@@ -12,6 +12,7 @@ class SetupAxios {
             'Content-Type': contentType,
           }
         : {},
+      withCredentials: true,
     })
 
     this.api.interceptors.response.use(
@@ -21,22 +22,29 @@ class SetupAxios {
         })
       },
       (error) => {
-        if (!error.response || [401, 403].includes(error.response.status)) {
+        //xu ly bua
+        if (!error.response) return Promise.reject(error)
+        //401 403
+        if ([401, 403].includes(error.response.status)) {
           // do some things
-          toast.error('Đã xảy ra lỗi!!!', { autoClose: 1000 })
-          return
+          // toast.error('Đã xảy ra lỗi!!!', { autoClose: 1000 })
+          return Promise.reject(error.response)
         }
         return Promise.reject(error.response.data)
       }
     )
+
+    // this.setHeader()
   }
 
   setHeader = () => {
+    // console.log('setting header')
     if (TokenService.getToken()) {
       this.api.defaults.headers.common[
         'Authorization'
       ] = `Bearer ${TokenService.getToken()}`
     }
+    return this
   }
 
   removeHeader = () => {

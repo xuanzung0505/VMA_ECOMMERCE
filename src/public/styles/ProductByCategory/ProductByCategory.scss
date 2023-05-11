@@ -253,91 +253,124 @@
         }
       }
 
-      & > .items {
-        display: grid;
-        margin-top: 15px;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 10px;
-        justify-content: space-between;
+      & > .main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-        & > a {
-          text-decoration: none;
+        & > .items {
+          display: grid;
+          margin-top: 15px;
+          grid-template-columns: repeat(5, 1fr);
+          gap: 10px;
+          justify-content: space-between;
 
-          & > .item {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            // row-gap: 5px;
-            // border: 1px solid black;
-            background-color: white;
-            box-shadow: 1px 1px 5px -1px $transparent-color5;
+          & > a {
+            text-decoration: none;
 
-            &:hover {
-              transform: translateY(-1px);
-              box-shadow: 1px 1px 7px 2px $transparent-color5;
-            }
-
-            & > .logo {
-              // width: 200px;
-              width: 100%;
-              height: 220px;
-              // height: 100%;
-              background-size: cover;
-              background-repeat: no-repeat;
-              background-position: center;
-              // border: 1px solid black;
-            }
-
-            & > .banner_love {
+            & > .item {
               position: relative;
-              top: -210px;
-              left: -80px;
-              background-color: $main-color4;
-              color: white;
-              padding: 0px 3px;
-            }
-
-            & > .title {
-              width: 90%;
-              height: 40px;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              color: black;
-
-              font-size: 1.1 * $fontSize;
-              // margin: 0px 4px;
-            }
-
-            & > .price {
-              width: 90%;
-              color: $main-color4;
-              font-size: 1.5 * $fontSize;
-              padding: 15px 0px 5px;
-            }
-            & > .ratingSold {
-              width: 90%;
               display: flex;
-              column-gap: 5px;
-              padding: 5px 0px;
-              font-size: 1.1 * $fontSize;
-              & > .rating {
-                display: flex;
-                align-items: center;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              // row-gap: 5px;
+              // border: 1px solid black;
+              background-color: white;
+              box-shadow: 1px 1px 5px -1px $transparent-color5;
+
+              &:hover {
+                transform: translateY(-1px);
+                box-shadow: 1px 1px 7px 2px $transparent-color5;
               }
 
-              & > .sold {
+              & > .logo {
+                // width: 200px;
+                width: 100%;
+                height: 220px;
+                // height: 100%;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                // border: 1px solid black;
+              }
+
+              & > .banner_love {
+                position: relative;
+                top: -210px;
+                left: -80px;
+                background-color: $main-color4;
+                color: white;
+                padding: 0px 3px;
+              }
+
+              & > .title {
+                width: 90%;
+                height: 40px;
+                overflow: hidden;
+                text-overflow: ellipsis;
                 color: black;
+
+                font-size: 1.1 * $fontSize;
+                // margin: 0px 4px;
+              }
+
+              & > .price {
+                width: 90%;
+                color: $main-color4;
+                font-size: 1.5 * $fontSize;
+                padding: 15px 0px 5px;
+              }
+              & > .ratingSold {
+                width: 90%;
+                display: flex;
+                column-gap: 5px;
+                padding: 5px 0px;
+                font-size: 1.1 * $fontSize;
+                & > .rating {
+                  display: flex;
+                  align-items: center;
+                }
+
+                & > .sold {
+                  color: black;
+                }
+              }
+
+              & > .location {
+                width: 90%;
+                height: 30px;
+                color: black;
+                font-size: 1.1 * $fontSize;
               }
             }
+          }
+        }
 
-            & > .location {
-              width: 90%;
-              height: 30px;
-              color: black;
-              font-size: 1.1 * $fontSize;
-            }
+        & > .empty {
+          display: flex;
+          flex-direction: column;
+          width: 500px;
+          align-items: center;
+          justify-content: center;
+          & > .icon {
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+
+            width: 150px;
+            height: 150px;
+          }
+
+          & > .caption {
+            @include navigationTextStyle();
+            font-size: 1.5 * $fontSize;
+          }
+
+          & > .subCaption {
+            @include navigationTextStyle();
+            font-size: 1.5 * $fontSize;
+            color: $transparent-color7;
           }
         }
       }

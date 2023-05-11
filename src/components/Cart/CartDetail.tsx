@@ -405,8 +405,11 @@ const CartFooter = ({ allState, setAllState }) => {
   const FooterCheckbox = ({ allState, setAllState }) => {
     const handleChange = () => {
       const newState = !allState
-      setAllState(newState)
-      return newState
+      if (newState) {
+        setAllState(newState)
+        return newState
+      }
+      return allState
     }
 
     return (

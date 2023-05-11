@@ -4,6 +4,7 @@ import { categoryServices } from '../../services/categoryServices'
 import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom'
 import { Pagination } from './Pagination'
 import { productServices } from '../../services/productServices'
+import emptyList from '../../public/assets/empty-list.png'
 // import { query } from '../../utils/query'
 
 // const { items } = require('./items')
@@ -347,53 +348,64 @@ const ProductCatalog = ({
                 </div>
               </div>
             </div>
-            <div className="items">
+            <div className="main">
               {productsPagi.docs?.length > 0 ? (
-                productsPagi.docs?.map((item: any) => {
-                  return (
-                    <Link to={`/product/${item._id}`}>
-                      <div className="item">
-                        <div
-                          className="logo"
-                          style={{ backgroundImage: `url(${item.logo})` }}
-                        ></div>
-                        <div className="banner_love">Yêu thích</div>
-                        <div className="title">{item.title}</div>
-                        <div className="price">₫{item.unitPrice}</div>
-                        <div className="ratingSold">
-                          <div className="rating">
-                            <i
-                              className="fa-solid fa-star fa-sm"
-                              style={{ color: '#ffdd00' }}
-                            ></i>
-                            <i
-                              className="fa-solid fa-star fa-sm"
-                              style={{ color: '#ffdd00' }}
-                            ></i>
-                            <i
-                              className="fa-solid fa-star fa-sm"
-                              style={{ color: '#ffdd00' }}
-                            ></i>
-                            <i
-                              className="fa-solid fa-star fa-sm"
-                              style={{ color: '#ffdd00' }}
-                            ></i>
-                            <i
-                              className="fa-solid fa-star fa-sm"
-                              style={{ color: '#ffdd00' }}
-                            ></i>
+                <div className="items">
+                  {productsPagi.docs?.map((item: any) => {
+                    return (
+                      <Link to={`/product/${item._id}`}>
+                        <div className="item">
+                          <div
+                            className="logo"
+                            style={{ backgroundImage: `url(${item.logo})` }}
+                          ></div>
+                          <div className="banner_love">Yêu thích</div>
+                          <div className="title">{item.title}</div>
+                          <div className="price">₫{item.unitPrice}</div>
+                          <div className="ratingSold">
+                            <div className="rating">
+                              <i
+                                className="fa-solid fa-star fa-sm"
+                                style={{ color: '#ffdd00' }}
+                              ></i>
+                              <i
+                                className="fa-solid fa-star fa-sm"
+                                style={{ color: '#ffdd00' }}
+                              ></i>
+                              <i
+                                className="fa-solid fa-star fa-sm"
+                                style={{ color: '#ffdd00' }}
+                              ></i>
+                              <i
+                                className="fa-solid fa-star fa-sm"
+                                style={{ color: '#ffdd00' }}
+                              ></i>
+                              <i
+                                className="fa-solid fa-star fa-sm"
+                                style={{ color: '#ffdd00' }}
+                              ></i>
+                            </div>
+                            <div className="sold">Đã bán 100</div>
                           </div>
-                          <div className="sold">Đã bán 100</div>
+                          {/* <div className="location">{item.vendor.location}</div> */}
+                          <div className="location">Hà Nội</div>
+                          {/* <div className="location">{}</div> */}
                         </div>
-                        {/* <div className="location">{item.vendor.location}</div> */}
-                        <div className="location">Hà Nội</div>
-                        {/* <div className="location">{}</div> */}
-                      </div>
-                    </Link>
-                  )
-                })
+                      </Link>
+                    )
+                  })}
+                </div>
               ) : (
-                <div>Empty</div>
+                <div className="empty">
+                  <div
+                    className="icon"
+                    style={{ backgroundImage: `url(${emptyList})` }}
+                  ></div>
+                  <div className="caption">Không tìm thấy kết quả nào</div>
+                  <div className="subCaption">
+                    Hãy thử sử dụng các từ khóa chung chung hơn
+                  </div>
+                </div>
               )}
             </div>
             <div className="bottombar">

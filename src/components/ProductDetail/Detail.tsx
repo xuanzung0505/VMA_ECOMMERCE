@@ -6,6 +6,10 @@ import { varianceServices } from '../../services/varianceServices'
 import { NotiManager } from '../../utils/notification'
 import { useGlobalContext } from '../..'
 
+import chat_logo from '../../public/assets/chat.png'
+const { defaultAvatar } = require('../../components/Global/avatar')
+const { element } = require('./element')
+
 const Stars = ({ count }) => {
   const maxStars = 5
 
@@ -114,20 +118,23 @@ const AddToCartButton = ({
   variance,
   quantity,
   maxQuantity,
+  addToCart,
 }) => {
   const handleClick = () => {
     // console.log(quantity)
     // console.log(maxQuantity)
-    if (product.attribute.length > 0 && !variance)
-      NotiManager.error('Bạn vui lòng chọn phân loại hàng')
-    else if (Number(quantity) > maxQuantity)
-      NotiManager.error('Bạn vui lòng kiểm tra lại số lượng')
-    else {
-      //add to cart
-      if (!user) {
-        NotiManager.warning('Bạn vui lòng đăng nhập để mua hàng')
-        navigate('/login')
-      } else {
+    if (!user) {
+      NotiManager.warning('Bạn vui lòng đăng nhập để mua hàng')
+      navigate('/login')
+    } else {
+      // console.log(user._id)
+      if ((product.attribute.length > 0 && !variance) || !variance)
+        NotiManager.error('Bạn vui lòng chọn phân loại hàng')
+      else if (Number(quantity) > maxQuantity)
+        NotiManager.error('Bạn vui lòng kiểm tra lại số lượng')
+      else {
+        //OK
+        addToCart(variance._id, user._id, Number(quantity))
       }
     }
   }
@@ -139,18 +146,191 @@ const AddToCartButton = ({
   )
 }
 
-export const Detail = ({ user, product }) => {
+const PreviewItems = ({ product }) => {
+  const element = product.imgPath
+  const maxSize = 5
+  const size = element.length
+  const [first, setFirst] = useState(0)
+  const last = first + maxSize
+  const [active, setActive] = useState(first)
+
+  // console.log(element)
+
+  const handlePrev = () => {
+    setFirst((oldVal: any) => {
+      if (oldVal - 1 < 0) {
+        return oldVal
+      }
+      return oldVal - 1
+    })
+  }
+
+  const handleNext = () => {
+    setFirst((oldVal: any) => {
+      if (oldVal + 1 + maxSize > size) {
+        return oldVal
+      }
+      return oldVal + 1
+    })
+  }
+
+  const handleActive = (index: any) => {
+    setActive(index)
+  }
+  let main = product.logo
+  if (size > 0) main = element[active].path
+
+  return (
+    <>
+      <div
+        className="main"
+        style={{
+          // backgroundImage: `url(${product.logo})`,
+          backgroundImage: `url(${main})`,
+        }}
+      ></div>
+      {size > 0 ? (
+        <>
+          <div className="list">
+            {size > maxSize && (
+              <div className="prevBtn" onClick={handlePrev}>
+                <i className="fa-solid fa-chevron-left fa-2xl"></i>
+              </div>
+            )}
+            {element.map((item: any, index: any) => {
+              if (0 <= index && index < first)
+                return (
+                  <div
+                    className="item prev"
+                    style={{
+                      backgroundImage: `url(${item.path})`,
+                    }}
+                  ></div>
+                )
+              else if (first <= index && index < last) {
+                if (index == active) {
+                  return (
+                    <div
+                      className="item active"
+                      style={{
+                        backgroundImage: `url(${item.path})`,
+                      }}
+                    ></div>
+                  )
+                }
+                return (
+                  <div
+                    className="item"
+                    style={{
+                      backgroundImage: `url(${item.path})`,
+                    }}
+                    onMouseOver={() => {
+                      handleActive(index)
+                    }}
+                  ></div>
+                )
+              } else
+                return (
+                  <div
+                    className="item next"
+                    style={{
+                      backgroundImage: `url(${item.path})`,
+                    }}
+                  ></div>
+                )
+            })}
+            {size > maxSize && (
+              <div className="nextBtn" onClick={handleNext}>
+                <i className="fa-solid fa-chevron-right fa-2xl"></i>
+              </div>
+            )}
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
+    </>
+  )
+}
+
+const Rate = ({ score, setScore, maxScore }) => {
+  let element = []
+  const [previewscore, setPreviewScore] = useState(0)
+
+  const Star = ({ active, index }) => {
+    const handleMouseOver = (index) => {
+      setPreviewScore(index + 1)
+    }
+
+    const handleMouseLeave = (index) => {
+      setPreviewScore(0)
+    }
+
+    const handleMouseClick = (index) => {
+      setScore(index + 1)
+    }
+
+    if (active === false)
+      return (
+        <i
+          className="fa-regular fa-star fa-2xl"
+          style={{ color: '#ee4d2d' }}
+          onMouseOver={() => handleMouseOver(index)}
+          onClick={() => handleMouseClick(index)}
+        ></i>
+      )
+    return (
+      <i
+        className="fa-solid fa-star fa-2xl"
+        style={{ color: '#ee4d2d' }}
+        onMouseLeave={() => handleMouseLeave(index)}
+        onMouseOver={() => handleMouseOver(index)}
+        onClick={() => handleMouseClick(index)}
+      ></i>
+    )
+  }
+
+  for (let i = 0; i < maxScore; i++) {
+    // console.log(item)
+    let active = false
+
+    if (i + 1 <= score) active = true
+    else {
+      if (i + 1 <= previewscore) active = true
+    }
+
+    const item = Star({ active: active, index: i })
+    // console.log(typeof item)
+    element.push(item)
+  }
+  // console.log(element)
+  // return <>{element}</>
+  return (
+    <>
+      {element.map((item: any) => {
+        return item
+      })}
+    </>
+  )
+}
+
+export const Detail = ({ user, product, navigate }) => {
   const [attribute, setAttribute] = useState([])
-  const [attributeJSON, setAttributeJSON] = useState('')
+  const [attributeJSON, setAttributeJSON] = useState('[]')
   const [quantity, setQuantity] = useState(1)
   const [maxQuantity, setMaxQuantity] = useState(product.quantity)
+  const [priceTag, setPriceTag] = useState(product.unitPrice)
   const [variance, setVariance] = useState()
 
-  //redirect hook
-  const navigate = useNavigate()
+  //Rate
+  const [score, setScore] = useState(0)
+  const maxScore = 5
+
+  //global context
+  const { addToCart } = useGlobalContext()
 
   useEffect(() => {
-    if (attribute.length == product.attribute.length && attributeJSON != '') {
+    if (attribute.length == product.attribute.length) {
       console.log('finding variance')
       varianceServices
         .getList({
@@ -158,13 +338,17 @@ export const Detail = ({ user, product }) => {
           attribute: JSON.stringify(attribute),
         })
         .then((res) => {
-          // console.log(res.data)
+          // console.log('variance')
+          console.log(res.data)
           const variance = res.data.docs[0]
           setVariance(variance)
           setMaxQuantity(variance.quantity)
+          setPriceTag(variance.unitPrice)
         })
         .catch((err) => {
-          console.log(err)
+          // console.log(err)
+          setPriceTag('?')
+          setMaxQuantity('?')
         })
     }
   }, [attributeJSON])
@@ -185,13 +369,7 @@ export const Detail = ({ user, product }) => {
         </div>
         <div className="detail">
           <div className="preview">
-            <div
-              className="main"
-              style={{
-                backgroundImage: `url(${product.logo})`,
-              }}
-            ></div>
-            <div className="list">list</div>
+            <PreviewItems product={product} />
           </div>
           <div className="info">
             <div className="title">
@@ -220,7 +398,7 @@ export const Detail = ({ user, product }) => {
               </div>
             </div>
             <div className="priceTag">
-              <div className="price">₫{product.unitPrice}</div>
+              <div className="price">₫{priceTag}</div>
             </div>
             <div className="attributes">
               <div className="deal">
@@ -272,16 +450,89 @@ export const Detail = ({ user, product }) => {
                   variance={variance}
                   quantity={quantity}
                   maxQuantity={maxQuantity}
+                  addToCart={addToCart}
                 />
                 <button className="buy">Mua Ngay</button>
               </div>
             </div>
           </div>
         </div>
-        <div className="shopDetail">shop Detail: {product.vendor.name}</div>
+        <div className="shopDetail">
+          <div
+            className="vendorAvatar"
+            //https://res.cloudinary.com/dolrhob6r/image/upload/v1683722080/mjza2mfj7m7yoqdlb6yq.svg
+            style={{
+              backgroundImage: !!product.vendor.avatar
+                ? `url(${product.vendor.avatar})`
+                : `url(${defaultAvatar})`,
+            }}
+          ></div>
+          <div className="vendorInfo">
+            <div className="row name">{product.vendor.name}</div>
+            <div className="row online">Online ? giờ trước</div>
+            <div className="row button">
+              <button className="chat">
+                <div
+                  className="chatLogo"
+                  style={{ backgroundImage: `url(${chat_logo})` }}
+                ></div>
+                Chat Ngay
+              </button>
+              <Link to={'#'}>
+                <button className="checkShop">
+                  <i
+                    className="fa-solid fa-store fa-sm"
+                    // style={{ color: '#000000' }}
+                  ></i>
+                  Xem Shop
+                </button>
+              </Link>
+            </div>
+          </div>
+          <div className="divider productDetail"></div>
+          <div className="vendorStat">
+            <div className="item">
+              <div className="title">Đánh Giá</div>
+              <div className="stat">1.3k</div>
+            </div>
+            <div className="item">
+              <div className="title">Tỉ Lệ Phản Hồi</div>
+              <div className="stat">89%</div>
+            </div>
+            <div className="item">
+              <div className="title">Tham Gia</div>
+              <div className="stat">1 tháng trước</div>
+            </div>
+            <div className="item">
+              <div className="title">Sản Phẩm</div>
+              <div className="stat">120</div>
+            </div>
+            <div className="item">
+              <div className="title">Thời Gian Phản Hồi</div>
+              <div className="stat">trong vài giờ</div>
+            </div>
+            <div className="item">
+              <div className="title">Người Theo Dõi</div>
+              <div className="stat">10k</div>
+            </div>
+          </div>
+        </div>
         <div className="row">
-          <div className="detail2">detail2</div>
-          <div className="ratings">ratings</div>
+          <div className="detail2">
+            <div className="caption">Chi tiết</div>
+          </div>
+          <div className="ratings">
+            <div className="caption">Đánh giá sản phẩm</div>
+            <div className="row">
+              <div className="rate">
+                <Rate score={score} setScore={setScore} maxScore={maxScore} />
+              </div>
+              <div className="score">
+                <span className="current">{score}</span> trên{' '}
+                <span className="total">{maxScore}</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

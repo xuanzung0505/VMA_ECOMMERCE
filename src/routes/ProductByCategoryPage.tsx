@@ -1,4 +1,9 @@
-import { useLoaderData, useLocation, useSearchParams } from 'react-router-dom'
+import {
+  useLoaderData,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom'
 import { ProductCatalog } from '../components/ProductByCategory/ProductCatalog'
 import { Navigation } from '../components/ProductByCategory/Navigation'
 import { categoryServices } from '../services/categoryServices'
@@ -18,7 +23,7 @@ async function categoryLoader({ params }) {
   let category = {}
   await categoryServices.getById(params.categoryId).then((res) => {
     category = res.data
-    console.log(category)
+    // console.log(category)
     return category
   })
   // console.log('done await')
@@ -48,6 +53,9 @@ const ProductByCategoryPage = () => {
   // const itemsPerPage = 20
   // const itemsPerPage = query.get('limit')
   const itemsPerPage = 10
+
+  const { cart } = useGlobalContext()
+  const navigate = useNavigate()
 
   useEffect(() => {
     categoryServices
@@ -104,6 +112,8 @@ const ProductByCategoryPage = () => {
         productsPagi={productsPagi}
         setProductsPagi={setProductsPagi}
         setSearchParams={setSearchParams}
+        cart={cart}
+        navigate={navigate}
       />
       <ProductCatalog
         category={category}

@@ -5,6 +5,8 @@ import '../../public/styles/Cart/Navigation.scss'
 
 import { Link } from 'react-router-dom'
 
+const { defaultAvatar } = require('../Global/avatar')
+
 export const Navigation = ({ user }) => {
   return (
     <div className="containerNav">
@@ -46,7 +48,28 @@ export const Navigation = ({ user }) => {
               </div>
 
               {!!user ? (
-                <div className="navigation__header__button">{user.email}</div>
+                <>
+                  <div className="navigation__header__button user">
+                    <div
+                      className="avatar"
+                      style={{
+                        backgroundImage: !!user.avatar
+                          ? `url(${user.avatar})`
+                          : `url(${defaultAvatar})`,
+                      }}
+                    ></div>
+                    {user.email}
+
+                    <div className="dropDown">
+                      <div className="option">
+                        <Link to={'#'}>Tài khoản của tôi</Link>
+                      </div>
+                      <div className="option">
+                        <Link to={'/logout'}>Đăng xuất</Link>
+                      </div>
+                    </div>
+                  </div>
+                </>
               ) : (
                 <>
                   <div className="navigation__header__button">
@@ -61,36 +84,37 @@ export const Navigation = ({ user }) => {
             </div>
           </div>
         </nav>
-      </div>
-      <div className="navigation__container login">
-        <div className="navigation login">
-          <div className="navigation__header">
-            <div className="navigation__header__left">
-              <div className="navigation__body__logo">
-                <Link to="/">
-                  <img src={shopee_url}></img>
-                </Link>
+
+        <div className="navigation__container login">
+          <div className="navigation login">
+            <div className="navigation__header">
+              <div className="navigation__header__left">
+                <div className="navigation__body__logo">
+                  <Link to="/">
+                    <img src={shopee_url}></img>
+                  </Link>
+                </div>
+                <div className="divider cart"></div>
+                <div className="bigText">Giỏ hàng</div>
               </div>
-              <div className="divider cart"></div>
-              <div className="bigText">Giỏ hàng</div>
-            </div>
-            <div className="navigation__header__right cart">
-              <div className="navigation__body__searchSection cart">
-                <form method="POST" action="/search">
-                  <div className="navigation__body__searchSection__searchbox">
-                    <input
-                      className="cart"
-                      type="search"
-                      placeholder="ShopeeFood - Giảm Tới 75.000Đ"
-                    ></input>
-                    <button>
-                      <i
-                        className="fa-solid fa-magnifying-glass"
-                        style={{ color: '#ffffff' }}
-                      ></i>
-                    </button>
-                  </div>
-                </form>
+              <div className="navigation__header__right cart">
+                <div className="navigation__body__searchSection cart">
+                  <form method="POST" action="/search">
+                    <div className="navigation__body__searchSection__searchbox">
+                      <input
+                        className="cart"
+                        type="search"
+                        placeholder="ShopeeFood - Giảm Tới 75.000Đ"
+                      ></input>
+                      <button>
+                        <i
+                          className="fa-solid fa-magnifying-glass"
+                          style={{ color: '#ffffff' }}
+                        ></i>
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
           </div>

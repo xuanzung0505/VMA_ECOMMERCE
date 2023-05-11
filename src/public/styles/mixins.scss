@@ -25,6 +25,12 @@
     background-color: $transparent-color2;
     height: 30px;
   }
+
+  &.productDetail {
+    background-color: $transparent-color2;
+    height: 80px;
+    // height: 100%;
+  }
 }
 
 .divider-horizontal {
@@ -89,6 +95,18 @@
 
   &:hover {
     opacity: 80%;
+  }
+}
+
+@mixin primaryButton3 {
+  padding: 15px 20px;
+  background-color: $transparent-color10;
+  color: $main-color4;
+  border: 1px solid $main-color4;
+  border-radius: $radius;
+
+  &:hover {
+    background-color: $transparent-color11;
   }
 }
 
